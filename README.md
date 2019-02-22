@@ -30,3 +30,19 @@ https://www.baeldung.com/category/testing/
 http://www.everydayunittesting.com/2018/03/real-life-tdd-test-case-analysis-part-i.html  需要读一下
 ```
 
+### Maven
+
+```
+// https://mromeh.com/2017/12/04/jenkins-pipeline-for-continuous-delivery-and-deployment/
+
+// 跳过集成测试
+mvn -Dintegration-tests.skip=true clean package
+
+// 跳过单元测试
+mvn verify -Dunit-tests.skip=true
+
+mvn verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true
+
+mvn -Dtest=ApplicationSanityCheck_ITT surefire:test
+```
+
