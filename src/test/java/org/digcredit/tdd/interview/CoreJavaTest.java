@@ -18,14 +18,21 @@ public class CoreJavaTest {
     public void testCompactString() {
         String s1 = "1111";
         String s2 = "1111";
-        System.out.println(s1 == s2);
-        System.out.println(s1.equals(s2));
+        System.out.println(s1 == s2);  // true
+        System.out.println(s1.equals(s2));  // true
         String s3 = new String("1111");
-        System.out.println(s1 == s3);
-        System.out.println(s1.equals(s3));
+        System.out.println(s1 == s3);  // false
+        System.out.println(s1.equals(s3));  // true
         s3 = s3.intern();
-        System.out.println(s1 == s3);
-        System.out.println(s1.equals(s3));
+        System.out.println(s1 == s3);  // true
+        System.out.println(s1.equals(s3));  // true
+
+        String s4 = "helloworld";
+        String s5 = "hello";
+        // 这种情况是常量字符串拼接，在编译器就确定了常量字符串 helloworld，所以会在常量池中创建，然后返回引用
+        System.out.println(s4 == "hello" + "world");  // true
+        // 这种情况是在运行时决定的，转变成 StringBuilder.append，然后 toString，在堆上创建了一个新的字符串对象
+        System.out.println(s4 == s5 + "world");  // false
 
         // ===
         System.out.println("--------------");
