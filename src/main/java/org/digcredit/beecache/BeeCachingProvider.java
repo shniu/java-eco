@@ -41,7 +41,8 @@ public class BeeCachingProvider implements CachingProvider {
             uriCacheManagers = new HashMap<>();
         }
 
-        CacheManager cacheManager = uriCacheManagers.computeIfAbsent(managerURI, k -> new BeeCacheManager(this));
+        CacheManager cacheManager = uriCacheManagers.computeIfAbsent(managerURI, k ->
+                new BeeCacheManager(this, managerURI, managerClassLoader));
 
         if (!cacheManagersByClassLoader.containsKey(managerClassLoader)) {
             cacheManagersByClassLoader.put(managerClassLoader, uriCacheManagers);
@@ -71,7 +72,7 @@ public class BeeCachingProvider implements CachingProvider {
 
     @Override
     public CacheManager getCacheManager(URI uri, ClassLoader classLoader) {
-        return getCacheManager(uri, classLoader, null);
+        return getCacheManager(uri, classLoader, getDefaultProperties());
     }
 
     @Override
@@ -93,6 +94,7 @@ public class BeeCachingProvider implements CachingProvider {
 
     @Override
     public void close(ClassLoader classLoader) {
+        classLoader = classLoader == null ? getDefaultClassLoader() : classLoader;
         HashMap<URI, CacheManager> managerHashMap = cacheManagersByClassLoader.get(classLoader);
         for (CacheManager cacheManager : managerHashMap.values()) {
             cacheManager.close();
@@ -109,5 +111,16 @@ public class BeeCachingProvider implements CachingProvider {
     @Override
     public boolean isSupported(OptionalFeature optionalFeature) {
         return false;
+    }
+
+    public synchronized void releaseCacheManager(URI uri, ClassLoader classLoader) {
+        HashMap<URI, CacheManager> managerHashMap = cacheManagersByClassLoader.get(classLoader);
+        if (managerHashMap != null) {
+            managerHashMap.remove(uri);
+
+            if (managerHashMap.size() == 0) {
+                cacheManagersByClassLoader.remove(classLoader);
+            }
+        }
     }
 }

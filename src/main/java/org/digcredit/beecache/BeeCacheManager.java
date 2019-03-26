@@ -5,8 +5,6 @@ import javax.cache.CacheException;
 import javax.cache.configuration.Configuration;
 import javax.cache.spi.CachingProvider;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
@@ -16,14 +14,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by shniu on 2019/3/25.
  */
 public class BeeCacheManager implements javax.cache.CacheManager {
-    private CachingProvider cachingProvider;
+    private final BeeCachingProvider cachingProvider;
 
-    private Map<String, BeeCache<?, ?>> caches = new ConcurrentHashMap<>();
+    private final Map<String, BeeCache<?, ?>> caches = new ConcurrentHashMap<>();
+    private final URI uri;
+    private final ClassLoader classLoader;
 
-    private boolean closed = false;
+    private volatile boolean closed;
 
-    public BeeCacheManager(CachingProvider cachingProvider) {
+    public BeeCacheManager(BeeCachingProvider cachingProvider, URI uri, ClassLoader classLoader) {
         this.cachingProvider = cachingProvider;
+
+        Objects.requireNonNull(uri);
+        Objects.requireNonNull(classLoader);
+        this.uri = uri;
+        this.classLoader = classLoader;
+
+        closed = false;
     }
 
     @Override
@@ -33,16 +40,12 @@ public class BeeCacheManager implements javax.cache.CacheManager {
 
     @Override
     public URI getURI() {
-        try {
-            return new URI(this.getClass().getName());
-        } catch (URISyntaxException e) {
-            throw new CacheException("URI?");
-        }
+        return uri;
     }
 
     @Override
     public ClassLoader getClassLoader() {
-        return getClass().getClassLoader();
+        return classLoader;
     }
 
     @Override
@@ -88,7 +91,7 @@ public class BeeCacheManager implements javax.cache.CacheManager {
 
     @Override
     public Iterable<String> getCacheNames() {
-        return null;
+        return caches.keySet();
     }
 
     @Override
@@ -113,11 +116,12 @@ public class BeeCacheManager implements javax.cache.CacheManager {
                 return;
             }
 
-            for (BeeCache<?, ?> entries : caches.values()) {
-                entries.close();
+            cachingProvider.releaseCacheManager(uri, classLoader);
+
+            for (BeeCache<?, ?> cache : caches.values()) {
+                cache.close();
             }
             caches.clear();
-            caches = new HashMap<>();
             closed = true;
         }
     }

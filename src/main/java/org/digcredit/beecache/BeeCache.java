@@ -21,10 +21,16 @@ import java.util.Set;
  */
 public class BeeCache<K, V> implements Cache<K, V> {
 
+    private final String cacheName;
+    private final CacheManager cacheManager;
+
     private CacheStore<K, V> cacheStore;
 
-    public BeeCache() {
+    public BeeCache(CacheManager cacheManager, String cacheName) {
         cacheStore = new LRUCacheStore<>();
+
+        this.cacheName = cacheName;
+        this.cacheManager = cacheManager;
     }
 
     @Override
@@ -130,7 +136,7 @@ public class BeeCache<K, V> implements Cache<K, V> {
 
     @Override
     public String getName() {
-        return null;
+        return cacheName;
     }
 
     @Override
