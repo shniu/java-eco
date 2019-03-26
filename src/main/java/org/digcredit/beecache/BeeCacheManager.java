@@ -65,7 +65,7 @@ public class BeeCacheManager implements javax.cache.CacheManager {
         synchronized (caches) {
             BeeCache<?, ?> beeCache = caches.get(cacheName);
             if (beeCache == null) {
-                beeCache = new BeeCache<>();
+                beeCache = new BeeCache<>(this, cacheName);
                 caches.put(cacheName, beeCache);
                 //noinspection unchecked
                 return (Cache<K, V>) beeCache;

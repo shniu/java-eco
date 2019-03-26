@@ -49,9 +49,9 @@ public class BeeCacheManagerTest {
     @Test(expected = CacheException.class)
     public void testCacheManager_whenClose_thenCanNotAccess() {
         cacheManager.close();
-        cacheManager = cachingProvider.getCacheManager();
-        System.out.println(cacheManager.isClosed());
         cacheManager.getCache("sample2");
+        /*cacheManager = cachingProvider.getCacheManager();
+        System.out.println(cacheManager.isClosed());*/
     }
 
 }

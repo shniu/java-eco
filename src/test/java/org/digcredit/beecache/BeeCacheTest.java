@@ -16,7 +16,7 @@ public class BeeCacheTest {
 
     @Test
     public void testBeeCache_whenPutAndGet_thenSucceed() throws Exception {
-        BeeCache<String, String> beeCache = new BeeCache<>();
+        BeeCache<String, String> beeCache = new BeeCache<>(null, "sample");
         beeCache.put("k1", "v1");
 
         Assert.assertEquals("v1", beeCache.get("k1"));
@@ -25,7 +25,7 @@ public class BeeCacheTest {
 
     @Test
     public void testBeeCache_givenUserObj_thenCacheSucceed() {
-        BeeCache<Integer, User> beeCache = new BeeCache<>();
+        BeeCache<Integer, User> beeCache = new BeeCache<>(null, "sample");
 
         User u1 = new User(1, 30, "xxx");
         User u2 = new User(2, 24, "yyy");
@@ -51,7 +51,7 @@ public class BeeCacheTest {
 
     @Test
     public void testBeeCache_whenRemove_thenGetNull() {
-        BeeCache<String, String> beeCache = new BeeCache<>();
+        BeeCache<String, String> beeCache = new BeeCache<>(null, "sample");
         beeCache.put("k1", "v1");
         beeCache.remove("k1");
         Assert.assertNull(beeCache.get("k1"));
