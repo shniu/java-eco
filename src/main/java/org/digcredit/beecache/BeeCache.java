@@ -29,7 +29,7 @@ public class BeeCache<K, V> implements Cache<K, V> {
 
     @Override
     public V get(K key) {
-        return null;
+        return cacheStore.get(key);
     }
 
     @Override

@@ -6,4 +6,6 @@ package org.digcredit.beecache.store;
 public interface CacheStore<K, V> {
 
     void put(K key, V value);
+
+    V get(K key);
 }
