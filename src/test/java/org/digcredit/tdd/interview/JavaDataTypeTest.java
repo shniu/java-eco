@@ -1,5 +1,6 @@
 package org.digcredit.tdd.interview;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -37,6 +38,7 @@ public class JavaDataTypeTest {
     }
 
     @Test
+    @Ignore
     public void testGetBytesUsingPrimitives() {
 
         int n = 10000;
