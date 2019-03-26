@@ -49,4 +49,12 @@ public class BeeCacheTest {
         }
     }
 
+    @Test
+    public void testBeeCache_whenRemove_thenGetNull() {
+        BeeCache<String, String> beeCache = new BeeCache<>();
+        beeCache.put("k1", "v1");
+        beeCache.remove("k1");
+        Assert.assertNull(beeCache.get("k1"));
+    }
+
 }

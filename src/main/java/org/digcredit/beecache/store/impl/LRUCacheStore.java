@@ -80,6 +80,20 @@ public class LRUCacheStore<K, V> implements org.digcredit.beecache.store.CacheSt
         return entry.getValue();
     }
 
+    @Override
+    public boolean remove(K key) {
+        LRUEntry<K, V> removedEntry = stores.remove(key);
+        removeEntry(removedEntry);
+        return removedEntry != null;
+    }
+
+    private void removeEntry(LRUEntry<K, V> removedEntry) {
+        removedEntry.getPrev().setNext(removedEntry.getNext());
+        removedEntry.getNext().setPrev(removedEntry.getPrev());
+        removedEntry.setPrev(null);
+        removedEntry.setNext(null);
+    }
+
     private void deleteOldPlace(LRUEntry<K, V> entry) {
         entry.getNext().setPrev(entry.getPrev());
         entry.getPrev().setNext(entry.getNext());

@@ -70,7 +70,7 @@ public class BeeCache<K, V> implements Cache<K, V> {
 
     @Override
     public boolean remove(K key) {
-        return false;
+        return cacheStore.remove(key);
     }
 
     @Override
