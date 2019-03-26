@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.cache.Cache;
+import javax.cache.CacheException;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
@@ -16,11 +17,12 @@ import javax.cache.spi.CachingProvider;
  */
 public class BeeCacheManagerTest {
 
+    private CachingProvider cachingProvider;
     private CacheManager cacheManager;
 
     @Before
     public void setUp() throws Exception {
-        CachingProvider cachingProvider = Caching.getCachingProvider("org.digcredit.beecache.BeeCachingProvider");
+        cachingProvider = Caching.getCachingProvider("org.digcredit.beecache.BeeCachingProvider");
         cacheManager = cachingProvider.getCacheManager();
     }
 
@@ -42,6 +44,14 @@ public class BeeCacheManagerTest {
         Assert.assertNotNull(cache);
         Assert.assertTrue(cache instanceof BeeCache);
         System.out.println(cache);
+    }
+
+    @Test(expected = CacheException.class)
+    public void testCacheManager_whenClose_thenCanNotAccess() {
+        cacheManager.close();
+        cacheManager = cachingProvider.getCacheManager();
+        System.out.println(cacheManager.isClosed());
+        cacheManager.getCache("sample2");
     }
 
 }

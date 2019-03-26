@@ -16,37 +16,34 @@ import javax.cache.spi.CachingProvider;
  */
 public class BeeTest {
 
+    private CachingProvider beeProvider;
     private CacheManager cacheManager;
     private Cache<String, String> cache;
-    private String defaultCacheName = "sample1";
+    private MutableConfiguration<String, String> configuration;
 
     @Before
     public void setUp() {
-        // CachingProvider cachingProvider = new BeeCachingProvider();
-
-        CachingProvider beeProvider = Caching.getCachingProvider("org.digcredit.beecache.BeeCachingProvider");
+        beeProvider = Caching.getCachingProvider("org.digcredit.beecache.BeeCachingProvider");
         cacheManager = beeProvider.getCacheManager();
-
-        MutableConfiguration<String, String> configuration = new MutableConfiguration<>();
+        configuration = new MutableConfiguration<>();
         configuration.setTypes(String.class, String.class);
-        cache = cacheManager.createCache(defaultCacheName, configuration);
     }
 
     @Test
     public void testBee_whenPutKVAndGetKey_thenSucceed() {
+        cache = cacheManager.createCache("c1", configuration);
         cache.put("k1", "hello");
         cache.put("k2", "world");
         Assert.assertEquals("hello", cache.get("k1"));
-        cacheManager.close();
     }
 
     @Test
     public void testBee_givenAKey_whenRemove_thenCanNotVisit() {
+        cache = cacheManager.createCache("c2", configuration);
         cache.put("uid_1", "9000");
         boolean removed = cache.remove("uid_1");
         Assert.assertTrue(removed);
         Assert.assertNull(cache.get("uid_1"));
-        cacheManager.close();
     }
 
 }

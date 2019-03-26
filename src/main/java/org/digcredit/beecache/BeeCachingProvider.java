@@ -93,7 +93,12 @@ public class BeeCachingProvider implements CachingProvider {
 
     @Override
     public void close(ClassLoader classLoader) {
-
+        HashMap<URI, CacheManager> managerHashMap = cacheManagersByClassLoader.get(classLoader);
+        for (CacheManager cacheManager : managerHashMap.values()) {
+            cacheManager.close();
+        }
+        managerHashMap.clear();
+        cacheManagersByClassLoader.put(classLoader, new HashMap<>());
     }
 
     @Override

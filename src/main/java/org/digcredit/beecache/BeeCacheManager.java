@@ -5,6 +5,8 @@ import javax.cache.CacheException;
 import javax.cache.configuration.Configuration;
 import javax.cache.spi.CachingProvider;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
@@ -31,12 +33,16 @@ public class BeeCacheManager implements javax.cache.CacheManager {
 
     @Override
     public URI getURI() {
-        return null;
+        try {
+            return new URI(this.getClass().getName());
+        } catch (URISyntaxException e) {
+            throw new CacheException("URI?");
+        }
     }
 
     @Override
     public ClassLoader getClassLoader() {
-        return null;
+        return getClass().getClassLoader();
     }
 
     @Override
@@ -73,7 +79,11 @@ public class BeeCacheManager implements javax.cache.CacheManager {
 
     @Override
     public <K, V> Cache<K, V> getCache(String cacheName) {
-        return null;
+        if (isClosed()) {
+            throw new CacheException("Cache manager closed.");
+        }
+        //noinspection unchecked
+        return (Cache<K, V>) caches.get(cacheName);
     }
 
     @Override
@@ -98,7 +108,18 @@ public class BeeCacheManager implements javax.cache.CacheManager {
 
     @Override
     public void close() {
-        closed = true;
+        synchronized (this) {
+            if (isClosed()) {
+                return;
+            }
+
+            for (BeeCache<?, ?> entries : caches.values()) {
+                entries.close();
+            }
+            caches.clear();
+            caches = new HashMap<>();
+            closed = true;
+        }
     }
 
     @Override
