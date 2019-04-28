@@ -53,6 +53,7 @@ public class BeeCacheManager implements javax.cache.CacheManager {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <K, V, C extends Configuration<K, V>> Cache<K, V> createCache(String cacheName, C configuration) throws IllegalArgumentException {
 
@@ -67,7 +68,6 @@ public class BeeCacheManager implements javax.cache.CacheManager {
             if (beeCache == null) {
                 beeCache = new BeeCache<>(this, cacheName);
                 caches.put(cacheName, beeCache);
-                //noinspection unchecked
                 return (Cache<K, V>) beeCache;
             } else {
                 throw new CacheException("A cache named " + cacheName + " already exists.");
