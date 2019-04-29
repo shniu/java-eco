@@ -7,6 +7,8 @@ import org.digcredit.netty.im.protocol.Packet;
 import org.digcredit.netty.im.protocol.PacketCodeC;
 import org.digcredit.netty.im.protocol.request.LoginRequestPacket;
 import org.digcredit.netty.im.protocol.response.LoginResponsePacket;
+import org.digcredit.netty.im.protocol.response.MessageResponsePacket;
+import org.digcredit.netty.im.util.LoginUtil;
 
 import java.util.Date;
 import java.util.UUID;
@@ -35,10 +37,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         if (packet instanceof LoginResponsePacket) {
             LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
             if (loginResponsePacket.isSuccess()) {
+                LoginUtil.markAsLogin(ctx.channel());
                 System.out.println(new Date() + ": 登陆成功");
             } else {
                 System.out.println(new Date() + ": 登陆失败，原因：" + loginResponsePacket.getReason());
             }
+        } else if (packet instanceof MessageResponsePacket) {
+            MessageResponsePacket responsePacket = (MessageResponsePacket) packet;
+            System.out.println(new Date() + ": 客户端收到回复：" + responsePacket.getMessage());
         }
     }
 }

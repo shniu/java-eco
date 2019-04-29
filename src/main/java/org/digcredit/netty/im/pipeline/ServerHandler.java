@@ -6,7 +6,11 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.digcredit.netty.im.protocol.Packet;
 import org.digcredit.netty.im.protocol.PacketCodeC;
 import org.digcredit.netty.im.protocol.request.LoginRequestPacket;
+import org.digcredit.netty.im.protocol.request.MessageRequestPacket;
 import org.digcredit.netty.im.protocol.response.LoginResponsePacket;
+import org.digcredit.netty.im.protocol.response.MessageResponsePacket;
+
+import java.util.Date;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -34,6 +38,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
             ByteBuf responseByteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginResponsePacket);
             ctx.channel().writeAndFlush(responseByteBuf);
+        } else if (packet instanceof MessageRequestPacket) {
+            MessageRequestPacket requestPacket = (MessageRequestPacket) packet;
+            System.out.println(new Date() + ": 收到来自客户端的请求：" + requestPacket.getMessage());
+
+            MessageResponsePacket messageResponsePacket = new MessageResponsePacket();
+            messageResponsePacket.setMessage("服务端回复[" + requestPacket.getMessage() + "]");
+            ByteBuf byteBuf1 = PacketCodeC.INSTANCE.encode(ctx.alloc(), messageResponsePacket);
+            ctx.channel().writeAndFlush(byteBuf1);
         }
     }
 

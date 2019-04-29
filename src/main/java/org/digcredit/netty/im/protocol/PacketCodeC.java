@@ -3,7 +3,9 @@ package org.digcredit.netty.im.protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import org.digcredit.netty.im.protocol.request.LoginRequestPacket;
+import org.digcredit.netty.im.protocol.request.MessageRequestPacket;
 import org.digcredit.netty.im.protocol.response.LoginResponsePacket;
+import org.digcredit.netty.im.protocol.response.MessageResponsePacket;
 import org.digcredit.netty.im.serialize.Serializer;
 import org.digcredit.netty.im.serialize.SerializerAlogrithm;
 import org.digcredit.netty.im.serialize.impl.JSONSerializer;
@@ -22,6 +24,8 @@ public class PacketCodeC {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
