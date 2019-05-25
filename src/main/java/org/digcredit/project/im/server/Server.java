@@ -5,11 +5,14 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.digcredit.project.im.server.handler.OutboundServerHandler;
+import org.digcredit.project.im.server.handler.PacketDecoder;
+import org.digcredit.project.im.server.handler.ServerHandler;
 
 @Slf4j
 public class Server {
@@ -24,10 +27,13 @@ public class Server {
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                    .childHandler(new ChannelInitializer<NioSocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel ch) throws Exception {
+                        protected void initChannel(NioSocketChannel ch) throws Exception {
+                            ch.pipeline().addLast(new PacketDecoder());
                             ch.pipeline().addLast(serverHandler);
+
+                            ch.pipeline().addLast(new OutboundServerHandler());
                         }
                     });
             ChannelFuture future = b.bind(8888).sync();

@@ -6,7 +6,7 @@ import org.digcredit.project.im.protocol.request.LoginRequestPacket;
 import org.digcredit.project.im.protocol.request.MessageRequestPacket;
 import org.digcredit.project.im.protocol.response.LoginResponsePacket;
 import org.digcredit.project.im.protocol.response.MessageResponsePacket;
-import org.digcredit.project.im.protocol.serializer.Serializer;
+import org.digcredit.project.im.serializer.Serializer;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package org.digcredit.project.im.protocol.serializer;
+package org.digcredit.project.im.serializer;
 
 import org.digcredit.project.im.protocol.Packet;
-import org.digcredit.project.im.protocol.serializer.impl.JSONSerializerImpl;
+import org.digcredit.project.im.serializer.impl.JSONSerializerImpl;
 
 public interface Serializer {
     Serializer DEFAULT = new JSONSerializerImpl();

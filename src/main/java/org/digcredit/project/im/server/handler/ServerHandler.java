@@ -1,4 +1,4 @@
-package org.digcredit.project.im.server;
+package org.digcredit.project.im.server.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -52,6 +52,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             log.info("[{}] 回复客户端", new Date());
             ByteBuf buf = PacketCode.encode(ctx.alloc(), loginResponsePacket);
             ctx.writeAndFlush(buf);
+            // ctx.fireChannelRead(buf);
         } else if (packet instanceof MessageRequestPacket) {
             log.info("{} 收到客户端信息：{}", new Date(), packet.toString());
             log.info("{} 回复客户端", new Date());
