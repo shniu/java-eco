@@ -2,9 +2,17 @@
 
 Java ecosystem
 
-## Tdd 实践
+## Java 项目
 
-- [Spring Boot: REST + TDD from scratch](https://hackernoon.com/spring-boot-rest-tdd-from-scratch-15f13ed799e0)
+#### Spring boot
+
+- [ityouknow/spring-boot-examples](https://github.com/ityouknow/spring-boot-examples)
+
+about learning Spring Boot via examples. Spring Boot 教程、技术栈示例代码，快速简单上手教程。 http://www.ityouknow.com/
+
+- [xuwujing/springBoot-study](https://github.com/xuwujing/springBoot-study)
+
+SpringBoot学习的相关工程并辅以博文讲解。主要包括入门的Hello World、自定义配置的获取、集成mybatis的xml和注解使用、集成jpa的使用、集成druid进行项目的监控、 项目打包、使用logback日志文件管理、添加过滤器和拦截器、多数据源、Restful风格的服务、集成elasticsearch、redis、netty、集成jsp和thymeleaf、集成storm、kafka等相关技术。
 
 ## 知识点
 
