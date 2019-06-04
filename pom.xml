@@ -12,7 +12,8 @@
     <modules>
         <module>whatsapp/whatsapp-server</module>
         <module>whatsapp/whatsapp-client</module>
-        <module>springboot-exitcode</module>
+        <module>spring-boot-exitcode</module>
+        <module>spring-boot-graceful-shutdown</module>
     </modules>
 
     <build>
