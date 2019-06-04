@@ -1,6 +1,6 @@
-# Java Ecosystem
+# tdd-starter
 
-Java ecosystem
+Tdd in action
 
 ## Tdd 实践
 
