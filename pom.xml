@@ -15,6 +15,7 @@
         <module>spring-boot-exitcode</module>
         <module>spring-boot-graceful-shutdown</module>
         <module>spring-boot-modular</module>
+        <module>notes/notes-juc</module>
     </modules>
 
     <build>
