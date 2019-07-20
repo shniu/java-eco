@@ -50,3 +50,17 @@ class Singleton2 {
         return instance;
     }
 }
+
+// 多线程单实例,  比较好的做法  IODH
+class Singleton3 {
+    private Singleton3() {
+    }
+
+    private static class LazySingleton3Holder {
+        static Singleton3 instance = new Singleton3();
+    }
+
+    public static Singleton3 getInstance() {
+        return LazySingleton3Holder.instance;
+    }
+}
