@@ -17,6 +17,7 @@
         <module>spring-boot-modular</module>
         <module>notes/notes-juc</module>
         <module>rx-java</module>
+        <module>identity</module>
     </modules>
 
     <dependencies>
