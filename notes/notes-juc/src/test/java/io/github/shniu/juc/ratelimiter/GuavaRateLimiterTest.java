@@ -23,6 +23,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GuavaRateLimiterTest {
 
     @Test
+    public void givenLimitedResource_whenLargeTrafficAccess_thenShouldBlocking() {
+        RateLimiter rateLimiter = RateLimiter.create(20.0);
+        ExecutorService es = Executors.newFixedThreadPool(1);
+
+        long prev = System.nanoTime();
+        for (int i = 0; i < 20; i++) {
+            rateLimiter.acquire();
+            es.execute(() -> {
+                long cur = System.nanoTime();
+                log.info("Time elapsed: {}", (cur - prev) / 1000_000);
+                // prev = cur;
+            });
+        }
+    }
+
+    @Test
     public void givenLimitedResource_whenRequestOnce_thenShouldPermitWithoutBlocking()
             throws InterruptedException {
         // given
