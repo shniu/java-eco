@@ -1,6 +1,6 @@
 package io.github.shniu.juc.ratelimiter;
 
-import java.util.Map;
+// https://github.com/vipshop/vjtools/commit/9eacb861960df0c41b2323ce14da037a9fdc0629
 import java.util.concurrent.TimeUnit;
 
 /**
