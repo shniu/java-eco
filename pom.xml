@@ -18,6 +18,7 @@
         <module>notes/notes-juc</module>
         <module>rx-java</module>
         <module>identity</module>
+        <module>spi</module>
     </modules>
 
     <dependencies>
