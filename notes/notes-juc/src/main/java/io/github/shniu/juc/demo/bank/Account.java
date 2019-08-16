@@ -1,5 +1,9 @@
 package io.github.shniu.juc.demo.bank;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Account {
     // 细粒度锁，分别使用两把锁来保护没有关系的两个共享资源
     // 达到可以并行
@@ -126,6 +130,56 @@ public class Account {
                 if (balance > amt) {
                     balance -= amt;
                     target.balance += amt;
+                }
+            }
+        }
+    }
+
+    private Lock lock = new ReentrantLock();
+    // 使用 ReentrantLock 实现并发控制
+    public void transfer6(final Account target, final int amt) {
+        boolean flag = true;
+
+        // 这种方式会出现活锁问题
+        // 互相持有各自的锁，发现需要的对方的锁都被对方持有，就会释放当前持有的锁，导致大家都在不停持锁，释放锁
+        // 解决活锁可以随机等待一个时间
+        while (flag) {
+            if (this.lock.tryLock()) {
+                try {
+                    if (target.lock.tryLock()) {
+                        try {
+                            balance -= amt;
+                            target.balance += amt;
+                            flag = false;
+                        } finally {
+                            target.lock.unlock();
+                        }
+                    }
+                } finally {
+                    this.lock.unlock();
+                }
+            }
+        }
+    }
+
+    // 解决活锁问题
+    public void transfer7(final Account account, final int amt) throws InterruptedException {
+        boolean flag = true;
+
+        while (flag) {
+            if (lock.tryLock(100, TimeUnit.MILLISECONDS)) {
+                try {
+                    if (account.lock.tryLock(50, TimeUnit.MILLISECONDS)) {
+                        try {
+                            balance -= amt;
+                            account.balance += amt;
+                            flag = false;
+                        } finally {
+                            account.lock.unlock();
+                        }
+                    }
+                } finally {
+                    lock.unlock();
                 }
             }
         }
