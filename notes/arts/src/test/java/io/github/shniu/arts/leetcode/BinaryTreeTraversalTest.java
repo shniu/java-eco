@@ -1,10 +1,8 @@
-package io.github.shniu.arts.algorithm;
+package io.github.shniu.arts.leetcode;
 
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class BinaryTreeTraversalTest {
 

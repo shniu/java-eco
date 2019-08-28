@@ -1,4 +1,4 @@
-package io.github.shniu.arts.algorithm;
+package io.github.shniu.arts.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
