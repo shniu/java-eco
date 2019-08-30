@@ -12,14 +12,18 @@
     <modules>
         <module>whatsapp/whatsapp-server</module>
         <module>whatsapp/whatsapp-client</module>
+
         <module>spring-boot-exitcode</module>
         <module>spring-boot-graceful-shutdown</module>
         <module>spring-boot-modular</module>
-        <module>notes/notes-juc</module>
-        <module>rx-java</module>
+
         <module>identity</module>
         <module>spi</module>
+
+        <module>rx-java</module>
+
         <module>notes/arts</module>
+        <module>notes/juc</module>
     </modules>
 
     <dependencies>
