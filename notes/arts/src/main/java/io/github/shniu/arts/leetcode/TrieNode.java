@@ -27,6 +27,10 @@ public class TrieNode {
         return links[ch - 'a'];
     }
 
+    public TrieNode get(int position) {
+        return links[position];
+    }
+
     public boolean containsKey(char ch) {
         return links[ch - 'a'] != null;
     }

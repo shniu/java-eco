@@ -31,4 +31,9 @@ public class HikariTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testServer() {
+
+    }
 }
