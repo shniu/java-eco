@@ -1,10 +1,14 @@
 package io.github.shniu.arts.leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MajoritySolution {
     public int majorityElement(int[] nums) {
@@ -55,6 +59,14 @@ public class MajoritySolution {
             }
             counts.put(num, counts.get(num) + 1);
         }
+        /*Arrays.stream(nums).forEach(num -> {
+            if (!counts.containsKey(num)) {
+                counts.put(num, 0);
+            }
+            counts.put(num, counts.get(num) + 1);
+        });*/
+        /*Map<Integer, Long> counts = ((Stream<Integer>) Arrays.stream(nums))
+                .collect(Collectors.groupingBy(p -> p, Collectors.counting()));*/
 
         /*for (Iterator<Map.Entry<Integer, Integer>> iterator =counts.entrySet().iterator(); iterator.hasNext();) {
             Map.Entry<Integer, Integer> entry = iterator.next();
