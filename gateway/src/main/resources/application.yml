@@ -3,3 +3,46 @@ server:
 
 test:
   uri: http://httpbin.org:80
+
+# http://www.ityouknow.com/springcloud/2018/12/12/spring-cloud-gateway-start.html
+spring:
+  cloud:
+    gateway:
+      loadbalancer:
+        use404: true
+      routes:
+        - id: neo_route
+          uri: http://www.ityouknow.com
+          predicates:
+            - Path=/spring-cloud
+#        - id: time_route
+#          uri: http://www.ityouknow.com
+#          predicates:
+#            - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]
+        - id: header_route
+          uri: http://ityouknow.com
+          predicates:
+            - Header=X-Request-Id, \d+
+
+        - id: lb_route
+          uri: lb://customRibbon
+          predicates:
+            - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]
+
+# 静态lb必须要关闭eureka的服务注册与发现
+ribbon:
+  eureka:
+    enabled: false
+
+customRibbon:
+  ribbon:
+    # 随机规则
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    listOfServers: http://ityouknow.com
+logging:
+  level:
+    root: DEBUG
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
