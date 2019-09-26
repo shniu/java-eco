@@ -16,9 +16,10 @@ public class ArrayUtil {
 
         int ptr1 = 0;
         int ptr2 = 0;
-        int copied = 0;
+        // int copied = 0;
 
-        while (copied < newArray.length) {
+        // copied < newArray.length
+        while (ptr1 < arr1.length && ptr2 < arr2.length) {
             // arr1 存在较小元素
             if (arr1[ptr1] < arr2[ptr2]) //noinspection Duplicates
             {
@@ -35,12 +36,12 @@ public class ArrayUtil {
                     }
                 }
 
-                copied += (endPos - ptr1);
+                // copied += (endPos - ptr1);
                 System.arraycopy(arr1, ptr1, newArray, ptr1 + ptr2, endPos - ptr1);
                 ptr1 = endPos;
-                if (ptr1 >= arr1.length) {
-                    break;
-                }
+//                if (ptr1 >= arr1.length) {
+//                    break;
+//                }
             } else //noinspection Duplicates
             {
                 int endPos = ptr2;
@@ -56,12 +57,12 @@ public class ArrayUtil {
                     }
                 }
 
-                copied += (endPos - ptr2);
+                // copied += (endPos - ptr2);
                 System.arraycopy(arr2, ptr2, newArray, ptr1 + ptr2, endPos - ptr2);
                 ptr2 = endPos;
-                if (ptr2 >= arr2.length) {
-                    break;
-                }
+//                if (ptr2 >= arr2.length) {
+//                    break;
+//                }
             }
         }
 
