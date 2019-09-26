@@ -1,8 +1,10 @@
 package io.github.shniu.arts.array;
 
-import java.util.ArrayList;
-
 /**
+ * 填充计数的实现
+ * - 使用 writePos 标识要写入的位置
+ * - 使用 available 标识有多少元素可以被读取
+ *
  * @author shniu
  * @date 2019/09/25 17:49:37
  */
@@ -12,52 +14,49 @@ public class RingBufferFillCountImpl<T> implements RingBuffer<T> {
      */
     private static final int DEFAULT_CAPACITY = 16;
 
+    private int capacity;
+    private int available;
+    private int writePos = 0;
+
     /**
      * Buffer 中的元素数据
      */
     private Object[] elements = null;
-
-    /**
-     * 读数据的位置
-     */
-    private int readPos = 0;
-
-    /**
-     * 写数据的位置
-     */
-    private int writePos = 0;
-
-    /**
-     * Buffer 中的元素数量
-     */
-    private int size = 0;
 
     private RingBufferFillCountImpl() {
         elements = new Object[DEFAULT_CAPACITY];
     }
 
     public RingBufferFillCountImpl(final int initialCapacity) {
+        capacity = DEFAULT_CAPACITY;
         if (initialCapacity > 0) {
-            elements = new Object[initialCapacity];
-        } else {
-            elements = new Object[DEFAULT_CAPACITY];
+            capacity = initialCapacity;
         }
-    }
-
-    public int capacity() {
-        return elements.length;
-    }
-
-    public int size() {
-        return size;
+        elements = new Object[capacity];
     }
 
     public int remainCapacity() {
-        return capacity() - size();
+        return capacity - available;
+    }
+
+    public int capacity() {
+        return capacity;
+    }
+
+    public int available() {
+        return available;
     }
 
     private boolean isEmpty() {
-        return size == 0;
+        return available == 0;
+    }
+
+    private boolean isFull() {
+        return capacity == available;
+    }
+
+    private boolean notFull() {
+        return available < capacity;
     }
 
     private int incrPos(int pos) {
@@ -70,15 +69,17 @@ public class RingBufferFillCountImpl<T> implements RingBuffer<T> {
 
     @Override
     public boolean put(T element) {
-        // 已满
-        if (remainCapacity() == 0) {
-            return false;
+        // 不满
+        if (notFull()) {
+            if (writePos >= capacity) {
+                writePos = 0;
+            }
+            elements[writePos] = element;
+            writePos++;
+            available++;
+            return true;
         }
-
-        elements[writePos] = element;
-        size++;
-        writePos = incrPos(writePos);
-        return true;
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -89,9 +90,33 @@ public class RingBufferFillCountImpl<T> implements RingBuffer<T> {
             return null;
         }
 
+        // 计算 readPos
+        int readPos = Math.abs(writePos - available) % capacity;
+        /*if (readPos < 0) {
+            readPos = readPos + capacity;
+        }*/
         Object element = elements[readPos];
-        size--;
-        readPos = incrPos(readPos);
+        available--;
         return (T) element;
+    }
+
+    @Override
+    public int put(T[] elements) {
+        return 0;
+    }
+
+    @Override
+    public int put(T[] elements, int length) {
+        return 0;
+    }
+
+    @Override
+    public int take(T[] into) {
+        return 0;
+    }
+
+    @Override
+    public int take(T[] into, int length) {
+        return 0;
     }
 }
