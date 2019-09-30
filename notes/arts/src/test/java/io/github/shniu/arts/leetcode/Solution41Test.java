@@ -18,5 +18,9 @@ public class Solution41Test {
         int[] nums2 = {10, 3, 5, 1, 100, 2, -1};
         firstMissingPositive = solution41.firstMissingPositive(nums2);
         Assertions.assertThat(firstMissingPositive).isEqualTo(4);
+
+
+        firstMissingPositive = solution41.firstMissingPositive2(nums2);
+        Assertions.assertThat(firstMissingPositive).isEqualTo(4);
     }
 }
