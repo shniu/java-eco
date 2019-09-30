@@ -38,4 +38,23 @@ public class Solution41 {
         nums[from] = nums[to];
         nums[to] = tmp;
     }
+
+    public int firstMissingPositive2(int[] nums) {
+        int length = nums.length;
+        // 使用一个新的数组来记录在 1 ~ length 之间的数字出现情况， i  的位置为1 表示 i + 1 出现了
+        int[] arr = new int[length];
+        for (int num : nums) {
+            if (num > 0 && num <= length) {
+                arr[num - 1] = 1;
+            }
+        }
+
+        int i = 0;
+        for (; i < length; i++) {
+            if (arr[i] != 1) {
+                return i + 1;
+            }
+        }
+        return i + 1;
+    }
 }
