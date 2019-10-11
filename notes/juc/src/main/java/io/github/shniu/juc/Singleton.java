@@ -1,5 +1,7 @@
 package io.github.shniu.juc;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class Singleton {
     private static Singleton instance = null;
 
@@ -62,5 +64,31 @@ class Singleton3 {
 
     public static Singleton3 getInstance() {
         return LazySingleton3Holder.instance;
+    }
+}
+
+// 使用 CAS 乐观锁实现的单例模式
+// https://www.hollischuang.com/archives/1866
+class CASSingleton {
+    private static final AtomicReference<CASSingleton> INSTANCE = new AtomicReference<>();
+
+    // 私有化构造函数
+    private CASSingleton() {
+
+    }
+
+    public static CASSingleton getInstance() {
+
+        for(;;) {
+            CASSingleton instance = INSTANCE.get();
+            if (null != instance) {
+                return instance;
+            }
+
+            instance = new CASSingleton();
+            if (INSTANCE.compareAndSet(null, instance)) {
+                return instance;
+            }
+        }
     }
 }
