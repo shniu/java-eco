@@ -16,11 +16,12 @@ public class BItMapFileSortingTest {
         long word = 12;
 
         word |= (1 << 1);
-        System.out.println(1 << 1);
-        System.out.println(1 << 2);
-        System.out.println(1 << 4);
-        System.out.println(12 >> 2);
-        System.out.println(word);
+        System.out.println(1 << 1);  // 2   2^1
+        System.out.println(1 << 2);  // 4   2^2
+        System.out.println(1 << 4);  // 16  2^4
+        System.out.println(12 >> 2); // 3   12 / (2^2)
+        System.out.println(63 >> 3); // 7   63 / (2^3)
+        System.out.println(word);    // 14  12 | 2 -> 1100 | 10  -> 1110 -> 14
 
         System.out.println("======================");
         BitMapFileSorting.BitMap bitMap = new BitMapFileSorting.BitMap(1000);
