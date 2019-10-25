@@ -1,6 +1,7 @@
 package io.github.shniu.arts.leetcode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -38,7 +39,8 @@ public class BinaryTreeTraversal {
     // 使用循环+栈的方式
     private List<Integer> inorderLoopAndStack(TreeNode node) {
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        // Stack<TreeNode> stack = new Stack<>();
+        LinkedList<TreeNode> stack = new LinkedList<>();
         TreeNode curr = node;
         while (curr != null || !stack.isEmpty()) {
             // 左子树不为空就一直把当前节点压栈
