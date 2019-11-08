@@ -25,6 +25,7 @@
         <module>notes/arts</module>
         <module>notes/juc</module>
         <module>gateway</module>
+        <module>fsm</module>
     </modules>
 
     <dependencies>
