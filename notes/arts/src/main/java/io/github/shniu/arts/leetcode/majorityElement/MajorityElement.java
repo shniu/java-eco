@@ -1,25 +1,18 @@
-package io.github.shniu.arts.leetcode;
+package io.github.shniu.arts.leetcode.majorityElement;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class MajoritySolution {
-    public int majorityElement(int[] nums) {
-
-        return sort(nums);
-        // return loopUntil(nums);
-        // return boyerMooreVote(nums);
-    }
-
-    // 随机法
-    private int randomSelect(int[] nums) {
+/**
+ * https://leetcode-cn.com/problems/majority-element/
+ * 169. 求众数
+ */
+public class MajorityElement {
+    // 1. 随机法
+    private int majorityElement1(int[] nums) {
         Random random = new Random();
         int majorityCnt = nums.length / 2;
 
@@ -49,9 +42,8 @@ public class MajoritySolution {
         return random.nextInt(max - min) + min;
     }
 
-    // hash 法
-    private int hash(int[] nums) {
-
+    // 2. hash 法
+    private int majorityElement2(int[] nums) {
         Map<Integer, Integer> counts = new HashMap<>();
         for (int num : nums) {
             if (!counts.containsKey(num)) {
@@ -86,14 +78,14 @@ public class MajoritySolution {
         return majority.getKey();
     }
 
-    // 排序法
-    private int sort(int[] nums) {
+    // 3. 排序法
+    private int majorityElement3(int[] nums) {
         Arrays.sort(nums);
         return nums[nums.length / 2];
     }
 
-    // 暴力法
-    private int loopUntil(int[] nums) {
+    // 4. 暴力法
+    private int majorityElement4(int[] nums) {
         int majorityCnt = nums.length / 2;
 
         for (int num : nums) {
@@ -112,8 +104,8 @@ public class MajoritySolution {
         return -1;
     }
 
-    // Boyer-Moore 投票算法
-    private int boyerMooreVote(int[] nums) {
+    // 5. Boyer-Moore 投票算法
+    private int majorityElement5(int[] nums) {
         int count = 0;
         int candidate = -1;
 
@@ -126,5 +118,39 @@ public class MajoritySolution {
         }
 
         return candidate;
+    }
+
+    // 6. 分治
+    private int majorityElement6(int[] nums) {
+        return divide(nums, 0, nums.length - 1);
+    }
+
+    private int divide(int[] nums, int low, int high) {
+        // terminator
+        if (low == high) return nums[low];
+
+        // split big problem
+        int mid = low + (high - low) / 2;
+
+        // drill down, sub problems
+        int left = divide(nums, low, mid);
+        int right = divide(nums, mid + 1, high);
+
+        if (left == right) return left;
+
+        int leftCount = countInRange(nums, left, low, high);
+        int rightCount = countInRange(nums, right, low, high);
+
+        return leftCount > rightCount ? left : right;
+    }
+
+    private int countInRange(int[] nums, int num, int low, int high) {
+        int count = 0;
+        for (int i = low; i <= high; i++) {
+            if (nums[i] == num) {
+                count++;
+            }
+        }
+        return count;
     }
 }
