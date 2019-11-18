@@ -1,5 +1,7 @@
 package io.github.shniu.arts.leetcode;
 
+import io.github.shniu.arts.trie.TrieNode;
+
 public class WordDictionary {
     private TrieNode root;
 

@@ -1,4 +1,4 @@
-package io.github.shniu.arts.leetcode;
+package io.github.shniu.arts.trie;
 
 public class TrieNode {
 

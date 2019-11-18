@@ -1,4 +1,4 @@
-package io.github.shniu.arts.leetcode.stack;
+package io.github.shniu.arts.stack;
 
 public class SimpleBrowser {
 

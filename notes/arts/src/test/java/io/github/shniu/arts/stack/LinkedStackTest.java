@@ -1,8 +1,6 @@
-package io.github.shniu.arts.leetcode.stack;
+package io.github.shniu.arts.stack;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class LinkedStackTest {
 

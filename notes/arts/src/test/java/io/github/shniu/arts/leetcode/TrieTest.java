@@ -1,5 +1,6 @@
 package io.github.shniu.arts.leetcode;
 
+import io.github.shniu.arts.trie.Trie;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

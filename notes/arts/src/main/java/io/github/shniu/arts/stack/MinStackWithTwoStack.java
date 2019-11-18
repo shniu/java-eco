@@ -1,4 +1,4 @@
-package io.github.shniu.arts.leetcode.stack;
+package io.github.shniu.arts.stack;
 
 import java.util.Deque;
 import java.util.LinkedList;

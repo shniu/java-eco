@@ -1,4 +1,4 @@
-package io.github.shniu.arts.leetcode.stack;
+package io.github.shniu.arts.stack;
 
 /**
  * 使用数组来实现一个栈
