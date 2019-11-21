@@ -1,7 +1,7 @@
 package io.github.shniu.arts.algothrim.graph;
 
 /**
- * Vertex of Graph
+ * Vertex of the Graph
  */
 public class Vertex {
     private String label;

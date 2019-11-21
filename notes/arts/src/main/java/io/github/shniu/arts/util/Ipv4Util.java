@@ -1,4 +1,4 @@
-package io.github.shniu.arts;
+package io.github.shniu.arts.util;
 
 public class Ipv4Util {
 

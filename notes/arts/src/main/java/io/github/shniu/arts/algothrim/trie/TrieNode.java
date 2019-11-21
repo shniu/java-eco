@@ -32,6 +32,7 @@ public class TrieNode {
     }
 
     public boolean containsKey(char ch) {
+        if (ch < 'a' || ch > 'z') return false;
         return links[ch - 'a'] != null;
     }
 
