@@ -1,13 +1,12 @@
 package io.github.shniu.arts.algothrim.graph;
 
+import io.github.shniu.arts.algothrim.graph.sp.DijkstraSP;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class GraphTest {
+public class DijkstraSPTest {
 
     @Test
-    public void testGraph() {
+    public void testDijkstra() {
         Graph graph = new Graph();
 
         Vertex v1 = new Vertex("Node_1", "a");
@@ -35,6 +34,11 @@ public class GraphTest {
         graph.addEdge(new Edge("Edge_4", v5, v7, 5));
         graph.addEdge(new Edge("Edge_4", v6, v7, 2));
 
-        graph.printGraph();
+        DijkstraSP dijkstraSP = new DijkstraSP(graph, v1);
+        int dist = dijkstraSP.distTo(v7);
+        System.out.println(dist);
+        assert dist == 12;
+        Iterable<Vertex> iterable = dijkstraSP.pathTo(v7);
+        iterable.forEach(System.out::println);
     }
 }
