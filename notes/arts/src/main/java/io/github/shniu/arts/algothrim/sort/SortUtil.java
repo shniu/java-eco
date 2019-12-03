@@ -145,7 +145,7 @@ public class SortUtil {
         }
 
         // 取中间位置
-        int m = s + ((e - s) >> 2);
+        int m = s + ((e - s) >> 1);
 
         // 分治递归
         mergeSortInternally(arr, s, m);

@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-public class SortUtilTest {
+public class SortableUtilTest {
 
     @Test
     public void test_bubbleSort() {
