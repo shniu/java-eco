@@ -1,4 +1,4 @@
-package io.github.shniu.arts.algothrim.leetcode.backtrack;
+package io.github.shniu.arts.algothrim.backtrack;
 
 /**
  * 0-1 背包问题
@@ -8,6 +8,10 @@ package io.github.shniu.arts.algothrim.leetcode.backtrack;
 public class Knapsack01 {
     private int maxW = Integer.MIN_VALUE;
 
+    /**
+     * 此处的查找方法的时间复杂度还是很高，虽然已经提前剪枝了，但是还是存在重复子问题
+     * 可以考虑使用一个记忆数组来优化
+     */
     public void find(int i, int cw, int[] items, int n, int w) {
         // terminator
         if (cw == w || i == n) {
@@ -23,6 +27,24 @@ public class Knapsack01 {
         if (cw + items[i] <= w) {
             // 放第i个物品
             find(i + 1, cw + items[i], items, n, w);
+        }
+    }
+
+    /**
+     * 记忆化递归
+     * boolean[][] memo: boolean[i][cw] 是否已经计算过
+     */
+    public void find(int i, int cw, int[] items, int n, int w, boolean[][] memo) {
+        if (cw == w || i == n) {
+            maxW = Math.max(maxW, cw);
+            return;
+        }
+        if (memo[i][cw]) return;
+
+        memo[i][cw] = true;
+        find(i + 1, cw, items, n, w, memo);
+        if (cw + items[i] <= w) {
+            find(i + 1, cw + items[i], items, n, w, memo);
         }
     }
 

@@ -4,7 +4,7 @@ package io.github.shniu.arts.algothrim.leetcode.climbingStairs;
  * https://leetcode-cn.com/problems/min-cost-climbing-stairs/
  * 746. 使用最小花费爬楼梯
  */
-public class MinCostClimbingStairs {
+public class MinCostClimbingStairs_746 {
     // dp
     public int minCostClimbingStairs1(int[] cost) {
         int n = cost.length;

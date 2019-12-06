@@ -1,4 +1,4 @@
-package io.github.shniu.arts.algothrim.leetcode.backtrack;
+package io.github.shniu.arts.algothrim.backtrack;
 
 /**
  * 八皇后问题，简单实现
