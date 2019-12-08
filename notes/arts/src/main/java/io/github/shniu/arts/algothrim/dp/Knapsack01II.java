@@ -12,24 +12,46 @@ public class Knapsack01II {
 
     // dp
     public int knapsack01(int[] items, int[] value, int n, int w) {
-        // dp[i][cw] 表示第i个物品达到重量cw时的最大价值
+        // dp[i][cw] 表示前i个物品放入重量为cw背包中可以获得的最大价值
+        // dp[i][cw] = max(dp[i-1][cw], dp[i-1][cw-items[i]] + value[i])
         int[][] dp = new int[n][w + 1];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(dp[i], -1);
-        }
 
         // base case
-        dp[0][0] = 0;
-        if (items[0] <= w) {
-            dp[1][items[0]] = value[0];
+        for (int i = 0; i <= w; i++) {
+            if (items[0] >= w) dp[0][i] = value[i];
         }
 
         // dp
         for (int i = 1; i < n; i++) {
-            //
+            for (int j = items[i]; j <= w; j++) {
+                dp[i][j] = Math.max(dp[i - 1][j],
+                        dp[i - 1][j - items[i]] + value[i]);
+            }
         }
 
-        return 0;
+        return dp[n - 1][w];
+    }
+
+    // dp 空间优化
+    public int knapsack01Plus(int[] items, int[] value, int n, int w) {
+        // dp[cw] 表示前i个物品放入重量为cw背包中可以获得的最大价值
+        // dp[cw] = max(dp[cw], dp[cw-items[i]] + value[i])
+        int[] dp = new int[w + 1];
+
+        // base case
+        for (int i = 0; i <= w; i++) {
+            if (items[0] >= w) dp[i] = value[i];
+        }
+
+        // dp
+        for (int i = 1; i < n; i++) {
+            for (int j = items[i]; j <= w; j++) {
+                dp[j] = Math.max(dp[j],
+                        dp[j - items[i]] + value[i]);
+            }
+        }
+
+        return dp[w];
     }
 
     // backtrack, 返回最大价值
@@ -44,9 +66,11 @@ public class Knapsack01II {
             return;
         }
 
+        // 不放
         find(i + 1, cw, cv, items, value, n, w);
         if (items[i] + cw <= w) {
-            find(i + 1, cw + items[i], cv + items[i], items, value, n, w);
+            // 放
+            find(i + 1, cw + items[i], cv + value[i], items, value, n, w);
         }
     }
 
@@ -54,8 +78,18 @@ public class Knapsack01II {
         Knapsack01II knapsack01II = new Knapsack01II();
         int[] items = new int[]{2, 2, 4, 6, 3}; // 物品的重量
         int[] value = new int[]{3, 4, 8, 9, 6}; // 物品的价值
+
         int maxV = knapsack01II.backtrack(items, value, 5, 9);
         System.out.println(maxV);
+
+        // dp
+        maxV = knapsack01II.knapsack01(items, value, 5, 9);
+        System.out.println(maxV);
+
+        maxV = knapsack01II.knapsack01Plus(items, value, 5, 9);
+        System.out.println(maxV);
+
+        // 正确结果是 18
     }
 
 }
