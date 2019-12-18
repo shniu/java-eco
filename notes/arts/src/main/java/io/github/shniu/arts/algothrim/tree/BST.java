@@ -1,4 +1,4 @@
-package io.github.shniu.arts.algothrim.leetcode.tree;
+package io.github.shniu.arts.algothrim.tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * @author shniu
  * @date 2019/09/16 18:01:38
  */
-public class BinarySearchTree {
+public class BST {
     // 树的根节点
     private Node root;
 

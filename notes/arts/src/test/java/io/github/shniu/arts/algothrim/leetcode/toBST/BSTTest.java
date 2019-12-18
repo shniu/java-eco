@@ -1,22 +1,23 @@
-package io.github.shniu.arts.algothrim.leetcode.tree;
+package io.github.shniu.arts.algothrim.leetcode.toBST;
 
+import io.github.shniu.arts.algothrim.tree.BST;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-public class BinarySearchTreeTest {
-    private BinarySearchTree bst;
+public class BSTTest {
+    private BST bst;
 
     @Before
     public void setUp() {
-        bst = new BinarySearchTree();
+        bst = new BST();
     }
 
     @Test
     public void test_whenFindEmptyTree_thenReturnNull() {
-        BinarySearchTree.Node node = bst.find(10);
+        BST.Node node = bst.find(10);
         Assert.assertNull(node);
     }
 
@@ -27,18 +28,18 @@ public class BinarySearchTreeTest {
             bst.insert(ele);
         }
 
-        BinarySearchTree.Node notFound = bst.find(1);
-        BinarySearchTree.Node found = bst.find(20);
+        BST.Node notFound = bst.find(1);
+        BST.Node found = bst.find(20);
         Assert.assertNull(notFound);
         Assert.assertEquals(20, found.getVal());
 
         bst.delete(22);
         bst.delete(20);
-        BinarySearchTree.Node delNode1 = bst.find(20);
+        BST.Node delNode1 = bst.find(20);
         Assert.assertNull(delNode1);
 
         bst.delete(100);
-        BinarySearchTree.Node delNode2 = bst.find(100);
+        BST.Node delNode2 = bst.find(100);
         Assert.assertNull(delNode2);
 
         List<Integer> inorder = bst.inorderTraversal();
@@ -50,9 +51,9 @@ public class BinarySearchTreeTest {
         List<Integer> postorder = bst.postorderTraversal();
         System.out.println(postorder);
 
-        BinarySearchTree.Node min = bst.min();
+        BST.Node min = bst.min();
         Assert.assertEquals(10, min.getVal());
-        BinarySearchTree.Node max = bst.max();
+        BST.Node max = bst.max();
         Assert.assertEquals(105, max.getVal());
 
         System.out.printf("Tree height: %d", bst.height());

@@ -1,6 +1,10 @@
-package io.github.shniu.arts.algothrim.leetcode.tree;
+package io.github.shniu.arts.algothrim.leetcode.toBST;
 
-public class Solution108 {
+/**
+ * https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/
+ * 108. 将有序数组转换为二叉搜索树
+ */
+public class SortedArrayToBST {
 
     public TreeNode sortedArrayToBST(int[] nums) {
         return sortedArrayToBST(nums, 0, nums.length);

@@ -1,4 +1,4 @@
-package io.github.shniu.arts.algothrim.training.week01;
+package io.github.shniu.arts.algothrim.queue;
 
 import java.util.Deque;
 import java.util.LinkedList;

@@ -1,15 +1,16 @@
 package io.github.shniu.arts.algothrim.leetcode;
 
+import io.github.shniu.arts.algothrim.leetcode.wordLadder.WordLadder;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class LeetCode127Test {
+public class WordLadderTest {
 
     @Test
     public void ladderLength() {
-        LeetCode127 leetCode127 = new LeetCode127();
-        int minConversionCount = leetCode127.ladderLength("hit", "cog", new ArrayList<String>() {{
+        WordLadder wordLadder = new WordLadder();
+        int minConversionCount = wordLadder.ladderLength1("hit", "cog", new ArrayList<String>() {{
             add("hot");
             add("dot");
             add("dog");
