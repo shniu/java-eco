@@ -21,7 +21,11 @@ public final class TokenRateLimiter {
     private long interval = 1000_000_000;
 
     private TokenRateLimiter() {
+    }
 
+    private TokenRateLimiter(long permitsPerSecond) {
+        maxPermits = permitsPerSecond;
+        interval = (1 / permitsPerSecond) * 1000_000_000;
     }
 
     /**
@@ -30,8 +34,8 @@ public final class TokenRateLimiter {
      * @param permitsPerSecond 每秒允许的最大请求数
      * @return object instance of TokenRateLimiter
      */
-    public static TokenRateLimiter create(double permitsPerSecond) {
-        return new TokenRateLimiter();
+    public static TokenRateLimiter create(long permitsPerSecond) {
+        return new TokenRateLimiter(permitsPerSecond);
     }
 
     /**

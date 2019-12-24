@@ -1,10 +1,13 @@
-package io.github.shniu.arts.algothrim.training.week02;
+package io.github.shniu.arts.algothrim.leetcode.anagrams;
 
 import java.util.HashMap;
 import java.util.Map;
 
-// https://leetcode-cn.com/problems/valid-anagram/
-public class LeetCode_242_716 {
+/**
+ * https://leetcode-cn.com/problems/valid-anagram/
+ * 242. 有效的字母异位词
+ */
+public class ValidAnagram {
 
     // 2.1 使用 HashMap
     public boolean isAnagram(String s, String t) {
