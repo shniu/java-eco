@@ -2,7 +2,6 @@ package io.github.shniu;
 
 import io.github.shniu.spi.RedisDriver;
 
-import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
