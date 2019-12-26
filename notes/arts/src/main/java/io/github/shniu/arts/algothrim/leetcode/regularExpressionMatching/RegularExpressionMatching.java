@@ -4,6 +4,7 @@ package io.github.shniu.arts.algothrim.leetcode.regularExpressionMatching;
  * https://leetcode-cn.com/problems/regular-expression-matching/
  * 10. 正则表达式匹配
  * https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/dong-tai-gui-hua-zhi-zheng-ze-biao-da
+ * https://leetcode.wang/leetCode-10-Regular-Expression-Matching.html
  */
 public class RegularExpressionMatching {
 
@@ -11,7 +12,7 @@ public class RegularExpressionMatching {
     public boolean isMatch(String s, String p) {
         int m = s.length(), n = p.length();
         // memo 数组
-        Boolean[][] memo = new Boolean[m+1][n+1];
+        Boolean[][] memo = new Boolean[m + 1][n + 1];
         // 加入两个位置参数，减少字符串的生成操作，优化时间和空间
         return isMatch(s, p, memo, 0, 0);
     }
@@ -59,5 +60,29 @@ public class RegularExpressionMatching {
             // 将问题分解为第一个字符是否匹配 & 剩下的字符是否匹配
             return firstMatch && normalMatch(s.substring(1), p.substring(1));
         }
+    }
+
+    // dp
+    public boolean isMatch2(String s, String p) {
+        int m = s.length(), n = p.length();
+        boolean[][] dp = new boolean[m + 1][n + 1];
+        // base case
+        dp[m][n] = true;
+
+        for (int i = m; i >= 0; i--) {
+            for (int j = n; j >= 0; j--) {
+                if (i == m && j == n) continue;
+
+                boolean firstMatch = i < m && j < n &&
+                        (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
+
+                if (j <= n - 2 && p.charAt(j + 1) == '*') {
+                    dp[i][j] = dp[i][j + 2] || (firstMatch && dp[i + 1][j]);
+                } else {
+                    dp[i][j] = firstMatch && dp[i + 1][j + 1];
+                }
+            }
+        }
+        return dp[0][0];
     }
 }

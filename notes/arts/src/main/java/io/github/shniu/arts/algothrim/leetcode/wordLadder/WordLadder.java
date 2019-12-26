@@ -96,6 +96,7 @@ public class WordLadder {
     class Pair {
         String word;
         int level;
+
         public Pair(String word, int level) {
             this.word = word;
             this.level = level;
@@ -179,5 +180,58 @@ public class WordLadder {
         }
 
         return -1;
+    }
+
+    // -------- 更加简洁的写法
+    // bbfs
+    public int ladderLength3(String beginWord, String endWord, List<String> wordList) {
+        Set<String> wordSet = new HashSet<>(wordList);
+        if (!wordSet.contains(endWord)) return 0;
+
+        // 需要两个set来记录两个方向的单词集合
+        Set<String> beginSet = new HashSet<>(), endSet = new HashSet<>();
+        Set<String> visited = new HashSet<>();
+        int strLen = beginWord.length();
+
+        int len = 1;
+        beginSet.add(beginWord);
+        endSet.add(endWord);
+        while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+            // 交换方向，每次都从元素最少的方向进行 BFS
+            if (beginSet.size() > endSet.size()) {
+                Set<String> s = beginSet;
+                beginSet = endSet;
+                endSet = s;
+            }
+
+            Set<String> temp = new HashSet<>();
+            // BFS
+            for (String word : beginSet) {
+                char[] chars = word.toCharArray();
+
+                for (int i = 0; i < strLen; i++) {
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        char old = chars[i];
+                        chars[i] = c;
+                        String target = String.valueOf(chars);
+
+                        if (endSet.contains(target)) {
+                            return len + 1;
+                        }
+
+                        if (!visited.contains(target) && wordSet.contains(target)) {
+                            visited.add(target);
+                            temp.add(target);
+                        }
+
+                        chars[i] = old;
+                    }
+                }
+            }
+            beginSet = temp;
+            len++;
+        }
+
+        return 0;
     }
 }
