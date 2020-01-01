@@ -26,6 +26,11 @@ public class VerifyOrder {
     }
 
     private void save(Order proOrder, Order deliveryOrder) {
+        Thread t = new Thread(() -> {
+        });
+        t.start();
+        t.start();
+        // Thread.State
         // todo
     }
 
