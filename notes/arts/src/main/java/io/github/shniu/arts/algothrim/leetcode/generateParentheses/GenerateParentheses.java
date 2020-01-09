@@ -11,6 +11,21 @@ import java.util.Queue;
  * 22. 括号生成
  */
 public class GenerateParentheses {
+    public List<String> generateParenthesisTest(int n) {
+        List<String> res = new ArrayList<>();
+        _generate(0, 0, n, "", res);
+        return res;
+    }
+
+    private void _generate(int left, int right, int n, String s, List<String> res) {
+        if (left == n && right == n) {
+            res.add(s);
+            return;
+        }
+        if (left < n) _generate(left + 1, right, n, s + "(", res);
+        if (left > right) _generate(left, right + 1, n, s + ")", res);
+    }
+
     // 1. 递归实现
     public List<String> generateParenthesis1(int n) {
         List<String> res = new ArrayList<>();

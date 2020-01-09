@@ -22,7 +22,7 @@ public class BestTimeToBuyAndSellStockII {
     // 该题使用贪心法是有效的
     public int maxProfit2(int[] prices) {
         int maxProfit = 0;
-        for (int i = 0; i < prices.length; i++) {
+        for (int i = 1; i < prices.length; i++) {
             int delta = prices[i] - prices[i - 1];
             if (delta > 0) {
                 maxProfit += delta;
