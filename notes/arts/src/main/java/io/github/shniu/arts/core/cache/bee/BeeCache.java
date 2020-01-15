@@ -1,7 +1,7 @@
-package org.digcredit.beecache;
+package io.github.shniu.arts.core.cache.bee;
 
-import org.digcredit.beecache.store.CacheStore;
-import org.digcredit.beecache.store.impl.LRUCacheStore;
+import io.github.shniu.arts.core.cache.bee.store.CacheStore;
+import io.github.shniu.arts.core.cache.bee.store.impl.LRUCacheStore;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;

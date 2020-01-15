@@ -1,4 +1,4 @@
-package org.digcredit.beecache.store.impl;
+package io.github.shniu.arts.core.cache.bee.store.impl;
 
 import javax.cache.Cache;
 

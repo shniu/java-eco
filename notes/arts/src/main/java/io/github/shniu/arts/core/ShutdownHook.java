@@ -1,4 +1,4 @@
-package org.digcredit.shutdown;
+package io.github.shniu.arts.core;
 
 public class ShutdownHook extends Thread {
 

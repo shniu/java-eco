@@ -1,4 +1,6 @@
-package org.digcredit.beecache.store.impl;
+package io.github.shniu.arts.core.cache.bee.store.impl;
+
+import io.github.shniu.arts.core.cache.bee.store.CacheStore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +10,7 @@ import java.util.Map;
  * <p>
  * Created by shniu on 2019/3/26.
  */
-public class LRUCacheStore<K, V> implements org.digcredit.beecache.store.CacheStore<K, V> {
+public class LRUCacheStore<K, V> implements CacheStore<K, V> {
 
     private final int DEFAULT_MAX_CAPACITY = 16;
 

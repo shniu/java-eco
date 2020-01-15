@@ -1,4 +1,4 @@
-package org.digcredit.beecache.store;
+package io.github.shniu.arts.core.cache.bee.store;
 
 /**
  * Created by shniu on 2019/3/25.

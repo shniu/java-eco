@@ -1,10 +1,10 @@
-package org.digcredit.netty.simple;
+package io.github.shniu.arts.core.io.bio;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
 
-public class TraditionalIOClient {
+public class BIOClient {
 
     public static void main(String[] args) {
         new Thread(() -> {

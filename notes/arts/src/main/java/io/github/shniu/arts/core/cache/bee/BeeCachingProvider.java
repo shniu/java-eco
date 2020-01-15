@@ -1,4 +1,4 @@
-package org.digcredit.beecache;
+package io.github.shniu.arts.core.cache.bee;
 
 import javax.cache.CacheException;
 import javax.cache.CacheManager;
