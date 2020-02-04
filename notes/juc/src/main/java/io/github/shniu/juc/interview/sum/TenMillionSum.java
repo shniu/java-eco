@@ -3,7 +3,6 @@ package io.github.shniu.juc.interview.sum;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +13,10 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.LongAdder;
 
+/**
+ * 博客
+ * https://blog.csdn.net/Baisitao_/article/details/103831031
+ */
 public class TenMillionSum {
     private static final int TOTAL_LIMIT = 10000000;
 
