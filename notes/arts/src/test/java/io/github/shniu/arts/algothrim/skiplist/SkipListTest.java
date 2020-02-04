@@ -2,8 +2,6 @@ package io.github.shniu.arts.algothrim.skiplist;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class SkipListTest {
 
     @Test
