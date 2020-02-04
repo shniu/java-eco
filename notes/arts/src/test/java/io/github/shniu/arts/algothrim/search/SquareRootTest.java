@@ -6,7 +6,7 @@ public class SquareRootTest {
 
     @Test
     public void testSqrt() {
-        double sqrt = SquareRoot.sqrt(10, 0.000001);
+        double sqrt = SquareRoot.sqrt(10, 0.0000000001);
         System.out.println(sqrt);
 
         int i = Integer.parseInt("210") & 0xFF;

@@ -13,7 +13,7 @@ public class SquareRoot {
             high = 1;
         }
 
-        double mid = low + (high - low) / 2;
+        double mid = low + (high - low) / 2.0;
         while (high - low > precision) {
             if (mid  > x / mid) {
                 high = mid;
