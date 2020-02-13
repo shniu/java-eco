@@ -1,9 +1,6 @@
 package io.github.shniu.gateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.cloud.gateway.filter.factory.AbstractNameValueGatewayFilterFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,16 +9,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class JWTFilter extends AbstractNameValueGatewayFilterFactory {
+public class JWTFilter // extends AbstractNameValueGatewayFilterFactory
+{
 
     public JWTFilter() {
         log.info("init JWTFilter.");
     }
 
-    @Override
-    public GatewayFilter apply(NameValueConfig config) {
-        log.info("Load jwt filter.");
-        return null;
-    }
+    // @Override
+//    public GatewayFilter apply(NameValueConfig config) {
+//        log.info("Load jwt filter.");
+//        return null;
+//    }
 
 }
