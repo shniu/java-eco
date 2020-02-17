@@ -5,5 +5,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configurable
 public class AsyncTaskPoolConfig implements WebMvcConfigurer {
-
+    // AbstractAnnotationConfigDispatcherServletInitializer
 }
+

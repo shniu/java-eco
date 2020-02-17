@@ -31,6 +31,7 @@ public class LinkedListLRUCache implements ICache, Printer {
         tail.prev = head;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void print() {
         StringBuilder kvBinder = new StringBuilder(20);
