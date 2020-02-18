@@ -33,4 +33,8 @@ public interface Stack {
      * 清空
      */
     void clear();
+
+    boolean isEmpty();
+
+    String peak();
 }

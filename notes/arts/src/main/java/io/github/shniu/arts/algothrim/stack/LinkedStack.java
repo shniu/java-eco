@@ -56,6 +56,19 @@ public class LinkedStack implements Stack {
         count = 0;
         top = null;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return count == 0;
+    }
+
+    @Override
+    public String peak() {
+        if (top != null) {
+            return top.getNext().getItem();
+        }
+        return null;
+    }
 }
 
 class Node {

@@ -64,6 +64,16 @@ public class ArrayStack implements Stack {
 
     }
 
+    @Override
+    public boolean isEmpty() {
+        return count == 0;
+    }
+
+    @Override
+    public String peak() {
+        return null;
+    }
+
     private boolean checkRemainCapacity() {
         return count < capacity;
     }

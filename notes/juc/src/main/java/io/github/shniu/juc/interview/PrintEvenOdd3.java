@@ -24,35 +24,36 @@ public class PrintEvenOdd3 {
             while (true) {
                 lock.lock();
 
-                if (number > MAX) {
-                    oddCond.signalAll();
-                    evenCond.signalAll();
+                try {
+                    if (number > MAX) {
+                        oddCond.signalAll();
+                        evenCond.signalAll();
+                        return;
+                    }
+
+                    // 偶数
+                    if (number % 2 == 0) {
+                        System.out.println(Thread.currentThread().getName() + number);
+                        number++;
+                        oddCond.signalAll();
+                        try {
+                            evenCond.await();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else { // 奇数
+                        System.out.println(Thread.currentThread().getName() + number);
+                        number++;
+                        evenCond.signalAll();
+                        try {
+                            oddCond.await();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } finally {
                     lock.unlock();
-                    return;
                 }
-
-                // 偶数
-                if (number % 2 == 0) {
-                    System.out.println(Thread.currentThread().getName() + number);
-                    number++;
-                    oddCond.signalAll();
-                    try {
-                        evenCond.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else { // 奇数
-                    System.out.println(Thread.currentThread().getName() + number);
-                    number++;
-                    evenCond.signalAll();
-                    try {
-                        oddCond.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                lock.unlock();
             }
         };
 
