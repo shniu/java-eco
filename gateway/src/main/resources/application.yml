@@ -45,4 +45,4 @@ logging:
     org:
       springframework:
         cloud:
-          gateway: DEBUG
+          gateway: INFO

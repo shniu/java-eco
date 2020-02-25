@@ -1,5 +1,7 @@
 package io.github.shniu.arts.algothrim.array;
 
+import java.util.Arrays;
+
 /**
  * 数组的常用操作.
  *
@@ -77,5 +79,26 @@ public class ArrayUtil {
         }
 
         return newArray;
+    }
+
+    // 合并两个有序数组，优化版，这也是归并排序的很核心的一步
+    public static int[] merge2(int[] arr1, int[] arr2) {
+        int length1 = arr1.length;
+        int length2 = arr2.length;
+        int[] res = new int[length1+length2];
+
+        int i = 0, j = 0, k = 0;
+        while (i < length1 && j < length2) {
+            if (arr1[i] < arr2[j]) {
+                res[k++] = arr1[i++];
+            } else {
+                res[k++] = arr2[j++];
+            }
+        }
+
+        while (i < length1) res[k++] = arr1[i++];
+        while (j < length2) res[k++] = arr2[j++];
+
+        return res;
     }
 }
