@@ -26,6 +26,8 @@
         <module>notes/juc</module>
         <module>gateway</module>
         <module>fsm</module>
+        <module>coffee-example</module>
+        <module>notes/learningSourceCode</module>
     </modules>
 
     <dependencies>

@@ -1,12 +1,10 @@
 package io.github.shniu.gateway.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.TopicPartition;
 import org.junit.Test;
 
 import java.util.Properties;
@@ -29,7 +27,7 @@ public class KafkaProducerTest {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-
+        TopicPartition tp;
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(props)) {
             for (int i = 0; i < 15; i++) {
                 producer.send(new ProducerRecord<>(TOPIC_NAME, "kafka-" + i));

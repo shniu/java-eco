@@ -77,9 +77,25 @@
             <version>3.4.10</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.asynchttpclient</groupId>-->
+<!--            <artifactId>async-http-client</artifactId>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>org.asynchttpclient</groupId>
-            <artifactId>async-http-client</artifactId>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere</groupId>-->
+<!--            <artifactId>sharding-jdbc-core</artifactId>-->
+<!--            <version></version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>4.0.0-RC1</version>
         </dependency>
 
         <!--        <dependency>-->

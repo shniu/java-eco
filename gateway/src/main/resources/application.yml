@@ -46,3 +46,47 @@ logging:
       springframework:
         cloud:
           gateway: INFO
+
+
+# Master slave:
+# https://github.com/apache/incubator-shardingsphere-example/blob/dev/sharding-jdbc-example/sharding-example/sharding-spring-boot-jpa-example/src/main/resources/application-master-slave.properties
+# https://github.com/apache/incubator-shardingsphere-example/blob/dev/sharding-jdbc-example/sharding-example/sharding-spring-boot-jpa-example/src/main/resources/application-sharding-master-slave.properties
+spring:
+  shardingsphere:
+    datasource:
+      names: master,slave0,slave1
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/master?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+        username: root
+        password: 123456
+      slave0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/slave0?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+        username: root
+        password: 123456
+      slave1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/slave1?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+        username: root
+        password: 123456
+
+    masterslave:
+      name: ms
+      master-data-source-name: master
+      slave-data-source-names: slave0,slave1
+      load-balance-algorithm-type: round_robin
+
+    props:
+      sql:
+        show: true
+#  jpa:
+#    database: MYSQL
+#    database-platform: org.hibernate.dialect.MySQLDialect
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        current_context_class: org.springframework.orm.hibernate.SpringSessionContext

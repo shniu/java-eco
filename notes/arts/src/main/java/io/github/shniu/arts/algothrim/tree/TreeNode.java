@@ -9,6 +9,10 @@ public class TreeNode {
         this.val = val;
     }
 
+    public int getVal() {
+        return val;
+    }
+
     public boolean hasTwoChildren() {
         return left != null && right != null;
     }
