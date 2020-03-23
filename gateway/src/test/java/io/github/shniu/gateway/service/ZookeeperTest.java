@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Slf4j
 public class ZookeeperTest {
-    private String connectString = "ubuntu-xenial:2181,ubuntu-xenial:2182,ubuntu-xenial:2183";
+    private String connectString = "192.168.33.10:2181,192.168.33.10:2182,192.168.33.10:2183";
 
     @Test
     public void testZk1() {
