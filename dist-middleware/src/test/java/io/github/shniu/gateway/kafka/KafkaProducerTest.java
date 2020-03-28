@@ -1,4 +1,4 @@
-package io.github.shniu.gateway.service;
+package io.github.shniu.gateway.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;

@@ -1,4 +1,4 @@
-package io.github.shniu.gateway.service;
+package io.github.shniu.gateway.kafka;
 
 import org.junit.Test;
 
