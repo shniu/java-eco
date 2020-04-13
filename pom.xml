@@ -24,10 +24,12 @@
 
         <module>notes/arts</module>
         <module>notes/juc</module>
-        <module>gateway</module>
+        <module>dist-middleware</module>
         <module>fsm</module>
         <module>coffee-example</module>
         <module>notes/learningSourceCode</module>
+        <module>spring-boot-mybatis</module>
+        <module>spring-boot-mybatis-plus</module>
     </modules>
 
     <dependencies>

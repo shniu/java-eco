@@ -13,7 +13,7 @@ public class KMP {
 
     public int match(String s, String p) {
         int n = s.length(), m = p.length();
-        int[] next = getNexts(p);
+        int[] next = getNexts(p.toCharArray(), m);
 
         int j = 0;
         for (int i = 0; i < n; i++) {
@@ -32,7 +32,21 @@ public class KMP {
         return -1;
     }
 
-    private int[] getNexts(String p) {
-        return null;
+
+    // b 表示模式串，m 表示模式串的长度
+    private static int[] getNexts(char[] b, int m) {
+        int[] next = new int[m];
+        next[0] = -1;
+        int k = -1;
+        for (int i = 1; i < m; ++i) {
+            while (k != -1 && b[k + 1] != b[i]) {
+                k = next[k];
+            }
+            if (b[k + 1] == b[i]) {
+                ++k;
+            }
+            next[i] = k;
+        }
+        return next;
     }
 }
