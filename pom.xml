@@ -30,6 +30,7 @@
         <module>notes/learningSourceCode</module>
         <module>spring-boot-mybatis</module>
         <module>spring-boot-mybatis-plus</module>
+        <module>eureka-server</module>
     </modules>
 
     <dependencies>
