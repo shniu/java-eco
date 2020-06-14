@@ -2,6 +2,16 @@
 
 Java ecosystem
 
+## 模块
+
+- eco-ratelimiter
+
+通用限流框架的实现
+
+- eco-algorithm
+
+整合数据结构和算法的实现，工作和学习中用到的算法也会放在这里
+
 ## Java 项目
 
 #### Spring boot

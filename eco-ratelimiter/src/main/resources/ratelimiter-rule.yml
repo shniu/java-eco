@@ -1,0 +1,14 @@
+configs:
+  - appId: app-1
+    limits:
+      - api: /v1/user
+        limit: 100
+        unit: 60
+      - api: /v1/topic
+        limit: 50
+  - appId: app-2
+    limits:
+      - api: /v1/user
+        limit: 2
+      - api: /v1/blog
+        limit: 5

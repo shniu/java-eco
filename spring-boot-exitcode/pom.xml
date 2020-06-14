@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.github.shniu</groupId>
-	<artifactId>springboot-exitcode</artifactId>
+	<artifactId>spring-boot-exitcode</artifactId>
 	<version>1.0.0</version>
 	<name>springboot-exitcode</name>
 	<description>Demo project for Spring Boot</description>

@@ -10,27 +10,34 @@
     <version>1.0.0</version>
 
     <modules>
-        <module>whatsapp/whatsapp-server</module>
-        <module>whatsapp/whatsapp-client</module>
+        <module>eco-algorithm</module>
+
+        <module>eco-ratelimiter</module>
+        <module>eco-reactive</module>
+
+        <module>eco-identity</module>
+        <module>eco-fsm</module>
+        <module>eco-coffee-srv</module>
+
+        <module>eco-modular</module>
+
+        <module>eco-whatsapp/whatsapp-server</module>
+        <module>eco-whatsapp/whatsapp-client</module>
 
         <module>spring-boot-exitcode</module>
         <module>spring-boot-graceful-shutdown</module>
-        <module>spring-boot-modular</module>
 
-        <module>identity</module>
-        <module>spi</module>
+        <module>eco-notes/arts</module>
+        <module>eco-notes/juc</module>
+        <module>eco-notes/learningSourceCode</module>
 
-        <module>rx-java</module>
-
-        <module>notes/arts</module>
-        <module>notes/juc</module>
         <module>dist-middleware</module>
-        <module>fsm</module>
-        <module>coffee-example</module>
-        <module>notes/learningSourceCode</module>
+
         <module>spring-boot-mybatis</module>
         <module>spring-boot-mybatis-plus</module>
         <module>eureka-server</module>
+        <module>eco-concurrency</module>
+
     </modules>
 
     <dependencies>
