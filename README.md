@@ -6,7 +6,12 @@ Java ecosystem
 
 - eco-ratelimiter
 
-通用限流框架的实现
+通用限流的实现
+
+1. [限流设计的思考](https://mp.weixin.qq.com/s/k9tm-4lBwm69nxnYp9octA)
+2. [User Guide](https://github.com/wangzheng0822/ratelimiter4j/wiki/1.-User-Guide%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C)
+3. [Benchmark](https://github.com/wangzheng0822/ratelimiter4j/wiki/2.-Benchmark%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A)
+4. https://github.com/wangzheng0822/ratelimiter4j
 
 - eco-algorithm
 
