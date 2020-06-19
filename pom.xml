@@ -20,6 +20,7 @@
         <module>eco-coffee-srv</module>
 
         <module>eco-modular</module>
+        <module>eco-concurrency</module>
 
         <module>eco-whatsapp/whatsapp-server</module>
         <module>eco-whatsapp/whatsapp-client</module>
@@ -35,8 +36,7 @@
 
         <module>spring-boot-mybatis</module>
         <module>spring-boot-mybatis-plus</module>
-        <module>eureka-server</module>
-        <module>eco-concurrency</module>
+        <module>spring-cloud-eureka-srv</module>
 
     </modules>
 
