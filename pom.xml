@@ -37,6 +37,10 @@
         <module>spring-boot-mybatis</module>
         <module>spring-boot-mybatis-plus</module>
         <module>spring-cloud-eureka-srv</module>
+        <module>eco-coffee-srv/coffee-eureka-srv</module>
+        <module>eco-coffee-srv/waiter-srv</module>
+        <module>eco-coffee-srv/coffee-commons</module>
+        <module>eco-coffee-srv/customer-srv</module>
 
     </modules>
 

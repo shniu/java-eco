@@ -1,0 +1,13 @@
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8866/eureka
+
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
