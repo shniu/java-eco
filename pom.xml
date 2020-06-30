@@ -32,7 +32,7 @@
         <module>eco-notes/juc</module>
         <module>eco-notes/learningSourceCode</module>
 
-        <module>dist-middleware</module>
+        <module>eco-middleware</module>
 
         <module>spring-boot-mybatis</module>
         <module>spring-boot-mybatis-plus</module>

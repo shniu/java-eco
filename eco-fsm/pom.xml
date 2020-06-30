@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.digcredit.core</groupId>
-	<artifactId>fsm</artifactId>
+	<artifactId>eco-fsm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fsm</name>
 	<description>Demo project for Spring Boot</description>

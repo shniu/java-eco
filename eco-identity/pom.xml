@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.github.shniu</groupId>
-    <artifactId>identity</artifactId>
+    <artifactId>eco-identity</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>identity</name>
     <description>Demo project for Spring Boot</description>
