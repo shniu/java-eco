@@ -7,6 +7,7 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.8
 
 repositories {
+    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     mavenCentral()
 }
 
@@ -16,6 +17,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.netty/netty-all
     compile group: 'io.netty', name: 'netty-all', version: '4.1.15.Final'
+
+    implementation("io.dropwizard.metrics:metrics-core:4.1.2")
 
     compile group: 'com.carrotsearch', name: 'java-sizeof', version: '0.0.5'
     compile group: 'com.google.guava', name: 'guava', version: '27.0.1-jre'

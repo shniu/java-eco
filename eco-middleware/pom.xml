@@ -135,6 +135,15 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- killbill commons queue -->
+        <!-- https://mvnrepository.com/artifact/org.kill-bill.commons/killbill-queue -->
+        <dependency>
+            <groupId>org.kill-bill.commons</groupId>
+            <artifactId>killbill-queue</artifactId>
+            <version>0.24.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>

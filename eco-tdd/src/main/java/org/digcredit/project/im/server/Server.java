@@ -36,10 +36,10 @@ public class Server {
                             ch.pipeline().addLast(new OutboundServerHandler());
                         }
                     });
-            ChannelFuture future = b.bind(8888).sync();
+            ChannelFuture future = b.bind(8889).sync();
             future.addListener(future1 -> {
                 if (future1.isSuccess()) {
-                    log.info("IM Server start success on port 8888");
+                    log.info("IM Server start success on port 8889");
                 }
             });
             future.channel().closeFuture().sync();

@@ -33,7 +33,7 @@ public class Client {
                         }
                     });
 
-            ChannelFuture future = b.connect("127.0.0.1", 8888).sync();
+            ChannelFuture future = b.connect("127.0.0.1", 8889).sync();
             future.addListener(future1 -> {
                 if (future1.isSuccess()) {
                     log.info("Connect 服务端成功!");

@@ -1,0 +1,41 @@
+server:
+  port: 18080
+
+my:
+  datasource:
+    url: 123
+
+spring:
+  rw-datasource:
+    url: jdbc:mysql://localhost:3308/test?useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: HikariCP
+      auto-commit: false
+      connection-timeout: 5000
+      validation-timeout: 3000
+      max-lifetime: 600000
+      maximum-pool-size: 10
+      minimum-idle: 2
+  ro-datasource:
+    url: jdbc:mysql://localhost:3308/fix?useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: HikariCP
+      auto-commit: false
+      connection-timeout: 5000
+      validation-timeout: 3000
+      max-lifetime: 600000
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+logging:
+  level:
+    root: info
+    org:
+      mybatis:
+        spring: debug
