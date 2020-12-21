@@ -41,6 +41,7 @@
         <module>eco-coffee-srv/waiter-srv</module>
         <module>eco-coffee-srv/coffee-commons</module>
         <module>eco-coffee-srv/customer-srv</module>
+        <module>eco-vertx</module>
 
     </modules>
 
@@ -115,6 +116,23 @@
             <artifactId>rest-assured</artifactId>
             <version>3.3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>
