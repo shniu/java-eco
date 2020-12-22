@@ -11,5 +11,11 @@
 
     <artifactId>flash-chat-client</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>io.github.shniu</groupId>
+            <artifactId>flash-chat-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>
