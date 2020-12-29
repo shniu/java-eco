@@ -48,6 +48,7 @@ public class FlashChatClient extends AbstractEndpoint {
 
     @Override
     protected void handleInboundData(SelectionKey key, byte[] bytes) throws IOException {
+        // 服务端写回的数据
         responseHandler.onMessage(new String(bytes));
     }
 
@@ -60,12 +61,13 @@ public class FlashChatClient extends AbstractEndpoint {
             channel.write(ByteBuffer.wrap(message.getBytes()));
         }
         key.interestOps(SelectionKey.OP_READ);
+        // System.out.println("Write finished.");
     }
 
     public void send(String message) {
         messages.add(message);
         SelectionKey key = channel.keyFor(selector);
         key.interestOps(OP_WRITE);
-        System.out.println(this.endpointId + " send: " + message);
+        // System.out.println(this.endpointId + " send: " + message);
     }
 }

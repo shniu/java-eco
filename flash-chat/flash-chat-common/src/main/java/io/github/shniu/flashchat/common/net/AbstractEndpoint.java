@@ -1,5 +1,7 @@
 package io.github.shniu.flashchat.common.net;
 
+import io.github.shniu.flashchat.common.exception.ConnectionException;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -24,6 +26,7 @@ public abstract class AbstractEndpoint implements Runnable {
     protected ByteBuffer buffer;
 
     private volatile boolean running;
+    private volatile boolean initialized = false;
 
     public AbstractEndpoint(String endpointId, int port) throws IOException {
         this(endpointId, new InetSocketAddress(port));
@@ -48,8 +51,8 @@ public abstract class AbstractEndpoint implements Runnable {
         running = true;
 
         execThread.start();
-        while (execThread.getState() == Thread.State.NEW) {
-            // waiting
+        while (!initialized) {
+            // System.out.println("Waiting for endpoint initialized.");
         }
     }
 
@@ -57,10 +60,24 @@ public abstract class AbstractEndpoint implements Runnable {
         running = false;
     }
 
+    public boolean isRunning() {
+        return running;
+    }
+
     @Override
     public void run() {
+        initialized = true;
+
         while (running) {
-            eventLoop();
+            try {
+                eventLoop();
+            } catch (ConnectionException e) {
+                try {
+                    stop();
+                } catch (IOException ex) {
+                    break;
+                }
+            }
         }
 
         cleanUp();
@@ -68,7 +85,7 @@ public abstract class AbstractEndpoint implements Runnable {
 
     void eventLoop() {
         try {
-            selector.select(1000);
+            selector.select(100);
 
             Iterator<SelectionKey> selectionKeyIterator = selector.selectedKeys().iterator();
             while (selectionKeyIterator.hasNext()) {
@@ -138,6 +155,8 @@ public abstract class AbstractEndpoint implements Runnable {
             e.printStackTrace();
 
             Closer.close(key);
+
+            throw new ConnectionException("CONN_ERR", e.getMessage());
         }
 
     }
@@ -157,5 +176,6 @@ public abstract class AbstractEndpoint implements Runnable {
         }
 
         Closer.close(selector);
+        System.out.println("Resource cleaner.");
     }
 }

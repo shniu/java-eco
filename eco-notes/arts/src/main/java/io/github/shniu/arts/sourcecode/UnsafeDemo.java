@@ -21,7 +21,7 @@ public class UnsafeDemo {
         UnsafeDemo unsafeDemo = new UnsafeDemo();
 
         try {
-            // 直接访问 Unsafe 的实例会报错，因为Unsafe的实例访问强制需要引导类加载器加载的类才可以访问
+            // 直接访问 Unsafe 的实例会报错，因为 Unsafe 的实例访问强制需要引导类加载器加载的类才可以访问
             // 安全控制
             Unsafe unsafe = Unsafe.getUnsafe();
             long countOffset = unsafe.objectFieldOffset(UnsafeDemo.class.getDeclaredField("count"));

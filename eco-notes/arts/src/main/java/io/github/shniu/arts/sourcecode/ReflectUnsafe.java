@@ -11,7 +11,7 @@ public class ReflectUnsafe {
 
     static {
         try {
-            // 通过反射的方式拿到Unsafe的实例，绕开了引导类加载器的限制
+            // 通过反射的方式拿到 Unsafe 的实例，绕开了引导类加载器的限制
             Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
             theUnsafe.setAccessible(true);
             UNSAFE = (Unsafe) theUnsafe.get(null);

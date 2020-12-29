@@ -5,7 +5,6 @@ import io.github.shniu.flashchat.common.net.AbstractEndpoint;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -43,10 +42,25 @@ public class FlashChatServer extends AbstractEndpoint {
     }
 
     @Override
-    protected void handleInboundData(SelectionKey key, byte[] bytes) throws IOException {
-        // Echo back
-        key.attach(ByteBuffer.wrap(bytes));
-        handleWrite(key);
+    protected void handleInboundData(SelectionKey sender, byte[] bytes) throws IOException {
+        System.out.println("Inbound data " + new String(bytes));
+
+        for (SelectionKey registeredKey : sender.selector().keys()) {
+            if (registeredKey.channel() instanceof ServerSocketChannel) {
+                continue;
+            }
+
+            if (registeredKey.equals(sender)) {
+                continue;
+            }
+
+            SocketChannel socketChannel = (SocketChannel) registeredKey.channel();
+
+            // Send to all other clients that have registered.
+            registeredKey.attach(ByteBuffer.wrap(bytes));
+            handleWrite(registeredKey);
+            System.out.println(socketChannel.socket().getRemoteSocketAddress() + " write finished.");
+        }
     }
 
     @Override

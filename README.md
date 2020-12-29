@@ -69,3 +69,8 @@ mvn verify sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore
 mvn -Dtest=ApplicationSanityCheck_ITT surefire:test
 ```
 
+#### Maven package executable jar
+
+ref: [How to Create an Executable JAR with Maven](https://www.baeldung.com/executable-jar-with-maven)，本篇文章中介绍了
+好几种打包可执行 jar 的方式.
+
