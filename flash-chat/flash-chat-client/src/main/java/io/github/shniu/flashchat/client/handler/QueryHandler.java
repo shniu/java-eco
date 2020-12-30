@@ -9,19 +9,19 @@ import io.github.shniu.flashchat.common.protocol.Version;
 
 /**
  * @author niushaohan
- * @date 2020/12/25 17
+ * @date 2020/12/30 22
  */
-public class LoginHandler implements MessageHandler {
+public class QueryHandler implements MessageHandler {
     private FlashChatClient chatClient;
 
-    public LoginHandler(FlashChatClient chatClient) {
+    public QueryHandler(FlashChatClient chatClient) {
         this.chatClient = chatClient;
     }
 
     @Override
     public void onMessage(String message) {
         Command command = new Command();
-        command.setHeader(new Header(Version.PROTOCOL_VERSION, CommandType.LOGIN.getType(), message.length()));
+        command.setHeader(new Header(Version.PROTOCOL_VERSION, CommandType.QUERY_FRIEND.getType(), message.length()));
         command.setPayload(message.getBytes());
 
         String msg = Jsons.writeValueAsString(command);
@@ -32,6 +32,6 @@ public class LoginHandler implements MessageHandler {
 
     @Override
     public CommandType commandType() {
-        return CommandType.LOGIN;
+        return CommandType.QUERY_FRIEND;
     }
 }

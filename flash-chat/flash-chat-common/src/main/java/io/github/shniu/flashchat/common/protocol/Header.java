@@ -9,6 +9,9 @@ public class Header {
     private char type;
     private int contentLength;
 
+    public Header() {
+    }
+
     public Header(char version, char type, int contentLength) {
         this.version = version;
         this.type = type;
@@ -25,5 +28,17 @@ public class Header {
 
     public int getContentLength() {
         return contentLength;
+    }
+
+    public void setVersion(char version) {
+        this.version = version;
+    }
+
+    public void setType(char type) {
+        this.type = type;
+    }
+
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
     }
 }

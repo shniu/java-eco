@@ -1,8 +1,6 @@
 package io.github.shniu.flashchat.client.handler;
 
-import io.github.shniu.flashchat.common.protocol.Command;
-
-import java.util.concurrent.Future;
+import io.github.shniu.flashchat.common.protocol.CommandType;
 
 /**
  * @author niushaohan
@@ -12,4 +10,5 @@ public interface MessageHandler {
     void onMessage(String message);
 
     // Future<String> login(Command loginCommand);
+    CommandType commandType();
 }

@@ -1,15 +1,20 @@
 package io.github.shniu.flashchat.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.shniu.flashchat.client.domain.LoginBean;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Maps;
 import io.github.shniu.flashchat.client.domain.User;
 import io.github.shniu.flashchat.client.handler.MessageHandler;
 import io.github.shniu.flashchat.common.Jsons;
 import io.github.shniu.flashchat.common.Logs;
+import io.github.shniu.flashchat.common.protocol.CommandType;
+import io.github.shniu.flashchat.common.protocol.command.LoginBean;
+import io.github.shniu.flashchat.common.protocol.command.QueryBean;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author niushaohan
@@ -18,8 +23,8 @@ import java.util.Objects;
 public class UIComponent {
     UI ui;
 
-    public UIComponent() {
-        ui = new UI();
+    public UIComponent(Context context, Object monitor) {
+        ui = new UI(context, monitor);
     }
 
     public void stop() {
@@ -27,16 +32,12 @@ public class UIComponent {
     }
 
     public void start() {
-       Thread uiHolder = new Thread(ui, "ui-component");
-       uiHolder.start();
+        Thread uiHolder = new Thread(ui, "ui-component");
+        uiHolder.start();
 
-       while (!ui.isInitialized()) {
-           // System.out.println("Waiting for initialized.");
-       }
-    }
-
-    public void registerLoginHandler(MessageHandler handler) {
-        ui.registerLoginHandler(handler);
+        while (!ui.isInitialized()) {
+            // System.out.println("Waiting for initialized.");
+        }
     }
 
     public void registerHandler(MessageHandler handler) {
@@ -44,32 +45,33 @@ public class UIComponent {
     }
 
     static class UI implements Runnable {
+        private final Object monitor;
         private volatile boolean running;
         private InputListener inputListener;
         private volatile boolean initialized = false;
 
-        List<MessageHandler> messageHandlers;
-        private MessageHandler loginHandler;
+        // List<MessageHandler> messageHandlers;
+        // private MessageHandler loginHandler;
+        Map<CommandType, MessageHandler> handlers;
 
-        private User user;
+        private Context context;
 
         // 当前所处界面
         private Page currentPage;
 
-        public UI() {
+        public UI(Context context, Object monitor) {
+            this.monitor = monitor;
+            this.context = context;
+
+            handlers = Maps.newHashMap();
+
             this.running = true;
             inputListener = new ConsoleInputListener();
-            messageHandlers = new ArrayList<>();
-
             currentPage = Page.Login;
         }
 
-        public void registerLoginHandler(MessageHandler handler) {
-            this.loginHandler = handler;
-        }
-
         public void register(MessageHandler handler) {
-            messageHandlers.add(handler);
+            handlers.put(handler.commandType(), handler);
         }
 
         public boolean isInitialized() {
@@ -80,27 +82,88 @@ public class UIComponent {
         public void run() {
             initialized = true;
 
-            // 这里要检查一下用户有没有登录
-            while (running) {
-                if (!loginSucceed()) {
-                    continue;
+            Logs.printLogin();
+            while (!loginSucceed()) {
+                Logs.printLogin();
+            }
+
+            // 登录成功后，拉取好友列表
+            Logs.printFetchFriends();
+            while (!fetchSucceed()) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                Logs.printFetchFriends();
+            }
 
-                // System.out.println("当前正在和 {who} 聊天, 请输入消息: ");
-                String message = inputListener.listening();
+            String username = null;
+            String userId = null;
 
-                for (MessageHandler handler : messageHandlers) {
-                    handler.onMessage(message);
+            while (running) {
+                if (Page.Main.equals(currentPage)) {
+                    System.out.println("您当前处于主页面，请选择一个好友进行聊天(输入 @{好友名称}, 比如 @John): ");
+                    String message = inputListener.listening();
+                    if (message.startsWith("@")) {
+                        username = message.substring(message.indexOf("@") + 1);
+
+                        User friend = context.findFriend(username);
+                        if (Objects.nonNull(friend)) {
+                            currentPage = Page.Chatting;
+                            userId = friend.getUserId();
+                        } else {
+                            System.out.println("Your friend " + username + " does not exist.");
+                        }
+                    }
+                } else if (Page.Chatting.equals(currentPage)) {
+                    System.out.println("当前正在和 {" + username + "} 聊天, 请输入消息: ");
+                    String message = inputListener.listening();
+
+                    if (message.equalsIgnoreCase("Quit")) {
+                        username = null;
+                        userId = null;
+                        currentPage = Page.Main;
+                        continue;
+                    }
+
+                    // 封装 message
+                    MessageHandler chatHandler = handlers.get(CommandType.CHAT);
+                    chatHandler.onMessage(message);
                 }
             }
         }
 
+        private boolean fetchSucceed() {
+            if (!context.isFetched()) {
+                QueryBean queryBean = new QueryBean(context.getUser().getUserId());
+                String query = Jsons.writeValueAsString(queryBean);
+                MessageHandler queryHandler = handlers.get(CommandType.QUERY_FRIEND);
+                queryHandler.onMessage(query);
+
+                synchronized (monitor) {
+                    try {
+                        monitor.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (context.isFetched()) {
+                Set<String> set = context.getFriends().stream()
+                        .map(user -> Joiner.on("\t\t\t\t").join(user.getUserId(), user.getUsername()))
+                        .collect(Collectors.toSet());
+                Logs.printFriends(set);
+            }
+
+            return context.isFetched();
+        }
+
         boolean loginSucceed() {
-            if (Objects.isNull(user)) {
+            if (!context.isLogin()) {
                 // 还没有登录
                 currentPage = Page.Login;
-
-                Logs.printLogin();
 
                 System.out.println("请输入用户名: ");
                 String username = inputListener.listening();
@@ -110,14 +173,32 @@ public class UIComponent {
                 LoginBean loginBean = new LoginBean(username, password);
                 try {
                     String loginMessage = Jsons.getObjectMapper().writeValueAsString(loginBean);
+                    MessageHandler loginHandler = handlers.get(CommandType.LOGIN);
                     loginHandler.onMessage(loginMessage);
+
+                    // 进入 wait
+                    synchronized (monitor) {
+                        try {
+                            monitor.wait();
+                            System.out.println("wakeup");
+                            System.out.println(context.getUser());
+                            System.out.println(context.isLogin());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-                return false;
             }
 
-            return true;
+            if (context.isLogin()) {
+                Logs.printLoginSucceed();
+                currentPage = Page.Main;
+            }
+
+            return context.isLogin();
         }
 
         public void stop() {

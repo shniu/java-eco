@@ -5,7 +5,11 @@ package io.github.shniu.flashchat.common.protocol;
  * @date 2020/12/25 18
  */
 public enum CommandType {
-    LOGIN('0');
+    LOGIN('0'),
+    CHAT('5'),
+    QUERY_FRIEND('A'),
+    ADD_FRIEND('B'),
+    ;
 
     private char type;
 
