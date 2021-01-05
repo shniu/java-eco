@@ -20,4 +20,14 @@ public enum CommandType {
     public char getType() {
         return type;
     }
+
+    public static CommandType typeOf(char type) {
+        for (CommandType commandType : CommandType.values()) {
+            if (commandType.getType() == type) {
+                return commandType;
+            }
+        }
+
+        return null;
+    }
 }

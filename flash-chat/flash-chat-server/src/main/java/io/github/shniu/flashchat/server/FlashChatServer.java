@@ -30,6 +30,7 @@ import java.nio.channels.spi.AbstractSelectableChannel;
 import java.nio.channels.spi.AbstractSelector;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -150,6 +151,12 @@ public class FlashChatServer extends AbstractEndpoint {
                 ChatBean chatBean = Jsons.readValue(command.getPayload(), ChatBean.class);
 
                 SocketChannel channel = channels.get(chatBean.getTo());
+                if (Objects.isNull(channel)) {
+                    // 离线处理
+                    System.out.println("Offline: " + chatBean);
+                    return;
+                }
+
                 SelectionKey toKey = channel.keyFor(selector);
 
                 byte[] payload = Jsons.writeValueAsBytes(chatBean);

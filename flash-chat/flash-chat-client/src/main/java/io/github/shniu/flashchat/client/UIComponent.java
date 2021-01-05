@@ -8,6 +8,7 @@ import io.github.shniu.flashchat.client.handler.MessageHandler;
 import io.github.shniu.flashchat.common.Jsons;
 import io.github.shniu.flashchat.common.Logs;
 import io.github.shniu.flashchat.common.protocol.CommandType;
+import io.github.shniu.flashchat.common.protocol.command.ChatBean;
 import io.github.shniu.flashchat.common.protocol.command.LoginBean;
 import io.github.shniu.flashchat.common.protocol.command.QueryBean;
 
@@ -129,7 +130,15 @@ public class UIComponent {
 
                     // 封装 message
                     MessageHandler chatHandler = handlers.get(CommandType.CHAT);
-                    chatHandler.onMessage(message);
+
+                    ChatBean chatBean = new ChatBean();
+                    chatBean.setMessage(message);
+                    chatBean.setTo(userId);
+                    chatBean.setFrom(context.getUser().getUserId());
+                    chatBean.setTimestamp(System.currentTimeMillis());
+                    chatBean.setSequenceNo(0L);
+
+                    chatHandler.onMessage(Jsons.writeValueAsString(chatBean));
                 }
             }
         }

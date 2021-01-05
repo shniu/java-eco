@@ -6,6 +6,7 @@ import io.github.shniu.flashchat.common.protocol.Command;
 import io.github.shniu.flashchat.common.protocol.CommandType;
 import io.github.shniu.flashchat.common.protocol.Header;
 import io.github.shniu.flashchat.common.protocol.Version;
+import io.github.shniu.flashchat.common.protocol.command.ChatBean;
 
 /**
  * @author niushaohan

@@ -1,5 +1,7 @@
 package io.github.shniu.flashchat.common.protocol;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author niushaohan
  * @date 2020/12/25 18
@@ -22,5 +24,10 @@ public class Command {
 
     public void setPayload(byte[] payload) {
         this.payload = payload;
+    }
+
+    @JsonIgnore
+    public CommandType getCommandType() {
+        return CommandType.typeOf(header.getType());
     }
 }
