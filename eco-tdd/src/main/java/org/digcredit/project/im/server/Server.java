@@ -18,10 +18,9 @@ import org.digcredit.project.im.server.handler.ServerHandler;
 public class Server {
 
     public static void main(String[] args) throws InterruptedException {
-
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        final ServerHandler serverHandler = new ServerHandler();
+
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
@@ -31,7 +30,7 @@ public class Server {
                         @Override
                         protected void initChannel(NioSocketChannel ch) throws Exception {
                             ch.pipeline().addLast(new PacketDecoder());
-                            ch.pipeline().addLast(serverHandler);
+                            ch.pipeline().addLast(new ServerHandler());
 
                             ch.pipeline().addLast(new OutboundServerHandler());
                         }

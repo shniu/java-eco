@@ -1,5 +1,6 @@
-package org.digcredit.beecache;
+package io.github.shniu.arts.beecache;
 
+import io.github.shniu.arts.core.cache.bee.BeeCachingProvider;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -66,7 +67,8 @@ public class BeeCachingProviderTest {
         beeCachingProvider.getCacheManager();
         beeCachingProvider.close();
 
-        WeakHashMap<ClassLoader, HashMap<URI, CacheManager>> cacheManagersByClassLoader = beeCachingProvider.getCacheManagersByClassLoader();
+        WeakHashMap<ClassLoader, HashMap<URI, CacheManager>> cacheManagersByClassLoader
+                = beeCachingProvider.getCacheManagersByClassLoader();
         Assert.assertNotNull(cacheManagersByClassLoader);
         Assert.assertEquals(0, cacheManagersByClassLoader.size());
     }

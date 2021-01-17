@@ -1,5 +1,6 @@
-package org.digcredit.beecache.store.impl;
+package io.github.shniu.arts.beecache.store.impl;
 
+import io.github.shniu.arts.core.cache.bee.store.impl.LRUCacheStore;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

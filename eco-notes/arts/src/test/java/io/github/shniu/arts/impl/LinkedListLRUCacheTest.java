@@ -1,6 +1,8 @@
-package org.digcredit.jbase.impl;
+package io.github.shniu.arts.impl;
 
-import org.digcredit.jbase.ICache;
+import io.github.shniu.arts.core.Printer;
+import io.github.shniu.arts.core.cache.ICache;
+import io.github.shniu.arts.core.cache.impl.LinkedListLRUCache;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +15,7 @@ public class LinkedListLRUCacheTest {
     public void testGivenKVThenPutCacheSucceed() {
         ICache cache = new LinkedListLRUCache();
         cache.set("abc", "1345");
-        String value = cache.get("abc");
+        String value = (String) cache.get("abc");
         assert "1345".equals(value);
     }
 
@@ -29,8 +31,8 @@ public class LinkedListLRUCacheTest {
         cache.set("a2", "33");
         cache.set("a2", "22");
         cache.set("a5", "55");
-        cache.print();
-        String a1Val = cache.get("a1");
+        ((Printer) cache).print();
+        String a1Val = (String) cache.get("a1");
         Assert.assertNull(a1Val);
         Assert.assertEquals("22", cache.get("a2"));
         Assert.assertNull(cache.get("a3"));

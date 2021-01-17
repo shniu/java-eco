@@ -71,3 +71,29 @@ imClient.addFriend();
 imClient.listFriends();
 imClient.deleteFriend();
 ```
+
+### Design
+
+- 客户端与服务端通信的协议设计
+
+1. 二进制
+2. 编码和解码，针对通信的整个数据包做编解码
+3. 序列化和反序列化，主要针对通信的 payload 数据做序列化和反序列化
+
+设计如下：
+
+```text
+ magic number    version  serializer algorithm  command   payload length  checksum length     payload      checksum
+|--- 魔数 ---|--- 版本号 ---|--- 序列化算法 ---|--- 指令 ---|--- 数据长度 ---|--- 校验和长度 ---|--- 数据 ---|--- 校验和 ---|
+   4 bytes       1 byte        1 byte           1 byte       4 bytes         2 bytes          n bytes       m bytes
+
+Total: 13 bytes + n bytes + m bytes
+```
+
+- 服务端设计
+
+1. 线程模型
+2. 网络模型
+3. 命令处理, 相关业务的处理
+
+- 类似于 Netty 的 Bootstrap 设计

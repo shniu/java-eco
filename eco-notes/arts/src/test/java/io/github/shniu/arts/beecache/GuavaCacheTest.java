@@ -1,4 +1,4 @@
-package org.digcredit.beecache;
+package io.github.shniu.arts.beecache;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

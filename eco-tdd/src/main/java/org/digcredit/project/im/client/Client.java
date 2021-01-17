@@ -8,11 +8,13 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.digcredit.project.im.protocol.PacketCode;
 import org.digcredit.project.im.protocol.request.MessageRequestPacket;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
 
 @Slf4j
@@ -29,6 +31,8 @@ public class Client {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             log.info("{} client: init channel", new Date());
+
+                            ch.pipeline().addLast(new LoggingHandler());
                             ch.pipeline().addLast(new ClientHandler());
                         }
                     });

@@ -21,7 +21,7 @@ public class BeeCachingProvider implements CachingProvider {
         cacheManagersByClassLoader = new WeakHashMap<>();
     }
 
-    WeakHashMap<ClassLoader, HashMap<URI, CacheManager>> getCacheManagersByClassLoader() {
+    public WeakHashMap<ClassLoader, HashMap<URI, CacheManager>> getCacheManagersByClassLoader() {
         return cacheManagersByClassLoader;
     }
 
