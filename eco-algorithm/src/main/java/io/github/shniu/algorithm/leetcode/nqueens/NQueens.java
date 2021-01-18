@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * https://leetcode-cn.com/problems/n-queens/
+ *
  * @author niushaohan
  * @date 2021/1/17 21
  */

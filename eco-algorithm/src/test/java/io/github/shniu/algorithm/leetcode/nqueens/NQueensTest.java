@@ -20,4 +20,22 @@ public class NQueensTest {
         System.out.println(queens);
     }
 
+    @Test
+    public void test() {
+        System.out.println(Integer.toBinaryString(-5));
+        System.out.println((1 << 8) - 1);
+        System.out.println(Integer.toBinaryString((1 << 8) - 1));
+
+        System.out.println(Integer.toBinaryString(8 & -8));
+        System.out.println(Integer.toBinaryString(5 & -5));
+        System.out.println(Integer.toBinaryString(4 & -4));
+        System.out.println(Integer.toBinaryString(3 & -3));
+
+        System.out.println(Integer.toBinaryString((1 << 8) - 1 & (~(0 | 0 | 0))));
+
+        int avail = (1 << 8) - 1 & (~(0 | 0 | 0));
+        // 00000001
+        System.out.println(Integer.toBinaryString(avail & -avail));
+    }
+
 }
