@@ -31,11 +31,24 @@ public class NQueensTest {
         System.out.println(Integer.toBinaryString(4 & -4));
         System.out.println(Integer.toBinaryString(3 & -3));
 
+        System.out.println(Integer.toBinaryString(~(0 | 0 | 0)));
+        // 11111111111111111111111111111111
+
         System.out.println(Integer.toBinaryString((1 << 8) - 1 & (~(0 | 0 | 0))));
+        // 11111111
 
         int avail = (1 << 8) - 1 & (~(0 | 0 | 0));
         // 00000001
         System.out.println(Integer.toBinaryString(avail & -avail));
+
+        System.out.println("=======");
+        System.out.println(Integer.toBinaryString(avail));
+        while (avail != 0) {
+            int pos = avail & (-avail);
+            avail = avail & (avail - 1);
+
+            System.out.println(Integer.toBinaryString(pos) + " : " + Integer.toBinaryString(avail));
+        }
     }
 
 }
