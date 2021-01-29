@@ -29,7 +29,7 @@ public class NQueens {
 
     private void populateChessboard(List<List<String>> res, char[][] chessboard, int row, int nQueens) {
         if (row == nQueens) {
-            res.add(snapshot(chessboard));
+            res.add(dumpSnapshot(chessboard));
             return;
         }
 
@@ -42,7 +42,7 @@ public class NQueens {
         }
     }
 
-    private List<String> snapshot(char[][] chessboard) {
+    private List<String> dumpSnapshot(char[][] chessboard) {
         List<String> snapshot = new ArrayList<>();
 
         for (char[] chars : chessboard) {
@@ -53,18 +53,21 @@ public class NQueens {
     }
 
     private boolean positionValid(char[][] chessboard, int row, int col) {
+        // 上方的行有没有占用当前列
         for (int i = 0; i < row; i++) {
             if (chessboard[i][col] == 'Q') {
                 return false;
             }
         }
 
+        // 右上方有没有皇后
         for (int i = row - 1, j = col + 1; i >= 0 && j < chessboard.length; i--, j++) {
             if (chessboard[i][j] == 'Q') {
                 return false;
             }
         }
 
+        // 左上方有没有皇后
         for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
             if (chessboard[i][j] == 'Q') {
                 return false;
