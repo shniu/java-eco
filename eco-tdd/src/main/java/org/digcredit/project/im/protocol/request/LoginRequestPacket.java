@@ -9,8 +9,8 @@ import org.digcredit.project.im.protocol.Packet;
 @Data
 public class LoginRequestPacket extends Packet {
 
-    private Integer userId;
-    private String name;
+    // private String userId;
+    private String username;
     private String password;
 
     @Override

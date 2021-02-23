@@ -1,20 +1,16 @@
-package org.digcredit.project.im.client;
+package org.digcredit.project.im.client.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.digcredit.project.im.protocol.Packet;
 import org.digcredit.project.im.protocol.PacketCode;
 import org.digcredit.project.im.protocol.request.LoginRequestPacket;
-import org.digcredit.project.im.protocol.response.LoginResponsePacket;
-import org.digcredit.project.im.protocol.response.MessageResponsePacket;
 
 import java.util.Date;
 
 @Slf4j
-public class ClientHandler extends ChannelInboundHandlerAdapter {
+public class AutoLoginHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * 在客户端连接成功服务端时调用，可以在这个时候发送一些数据
@@ -22,7 +18,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // super.channelActive(ctx);
-        log.info("[{}] channel active, and write data to server", new Date());
+        log.info("[{}] channel active, 客户端开始登录", new Date());
 
         // 构造请求 Payload
         ByteBuf buf = getLoginBuf(ctx);
@@ -33,10 +29,10 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     private ByteBuf getLoginBuf(ChannelHandlerContext ctx) {
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
-        loginRequestPacket.setUserId(1000);
-        loginRequestPacket.setName("Jim");
+        loginRequestPacket.setUsername("Jim");
         loginRequestPacket.setPassword("111");
-        return PacketCode.encode(ctx.alloc(), loginRequestPacket);
+
+        return PacketCode.encode(ctx.alloc().ioBuffer(), loginRequestPacket);
     }
 
     @Override
@@ -47,17 +43,25 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        log.info("[{}] channel read", new Date());
+        super.channelRead(ctx, msg);
         // super.channelRead(ctx, msg);
-        ByteBuf buf = (ByteBuf) msg;
-
-        Packet packet = PacketCode.decode(buf);
-        if (packet instanceof LoginResponsePacket) {
-            log.info("[{}] 登录响应: {}", new Date(), packet.toString());
-        } else if (packet instanceof MessageResponsePacket) {
-            log.info("[{}] 客户端收到响应: {}", new Date(), packet.toString());
-        } else {
-            log.info("[{}] channel read: {}", new Date(), buf.toString(CharsetUtil.UTF_8));
-        }
+//        ByteBuf buf = (ByteBuf) msg;
+//
+//        Packet packet = PacketCode.decode(buf);
+//        if (packet instanceof LoginResponsePacket) {
+//            LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
+//            if (loginResponsePacket.isSuccess()) {
+//                LoginUtil.markAsLogin(ctx.channel());
+//                log.info("[{}] 登录成功，响应: {}", new Date(), packet.toString());
+//            } else {
+//                log.info("[{}] 登录失败，响应: {}", new Date(), packet.toString());
+//            }
+//        } else if (packet instanceof MessageResponsePacket) {
+//            log.info("[{}] 客户端收到响应: {}", new Date(), packet.toString());
+//        } else {
+//            log.info("[{}] channel read: {}", new Date(), buf.toString(CharsetUtil.UTF_8));
+//        }
     }
 
     @Override

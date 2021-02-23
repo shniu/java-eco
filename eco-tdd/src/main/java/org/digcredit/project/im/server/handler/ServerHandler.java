@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.digcredit.project.im.protocol.Packet;
 import org.digcredit.project.im.protocol.PacketCode;
@@ -33,35 +34,38 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // super.channelRead(ctx, msg);
 
-        ByteBuf byteBuf = (ByteBuf) msg;
-        Packet packet = PacketCode.decode(byteBuf);
-
-        // 登录验证
-        if (packet instanceof LoginRequestPacket) {
-            // 登录响应
-            LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
-            loginResponsePacket.setCode(-1);
-
-            if (loginValid(packet)) {
-                // 登录成功
-                log.info("[{}] 登录成功: {}", new Date(), packet.toString());
-                loginResponsePacket.setCode(0);
-                loginResponsePacket.setData("oo-xx");
-            }
-
-            log.info("[{}] 回复客户端", new Date());
-            ByteBuf buf = PacketCode.encode(ctx.alloc(), loginResponsePacket);
-            ctx.writeAndFlush(buf);
-            // ctx.fireChannelRead(buf);
-        } else if (packet instanceof MessageRequestPacket) {
-            log.info("{} 收到客户端信息：{}", new Date(), packet.toString());
-            log.info("{} 回复客户端", new Date());
-
-            MessageResponsePacket responsePacket = new MessageResponsePacket();
-            responsePacket.setMessage("我收到消息了");
-            ByteBuf buf = PacketCode.encode(ctx.alloc(), responsePacket);
-            ctx.writeAndFlush(buf);
-        }
+//        ByteBuf byteBuf = (ByteBuf) msg;
+//        Packet packet = PacketCode.decode(byteBuf);
+//
+//        // 登录验证
+//        if (packet instanceof LoginRequestPacket) {
+//            // 登录响应
+//            LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
+//            loginResponsePacket.setCode(-1);
+//            loginResponsePacket.setData("Login Failure");
+//
+//            if (loginValid(packet)) {
+//                // 登录成功
+//                log.info("[{}] 登录成功: {}", new Date(), packet.toString());
+//                loginResponsePacket.setCode(0);
+//                loginResponsePacket.setData("Login Success");
+//            }
+//
+//            log.info("[{}] 回复客户端", new Date());
+//            ByteBuf buf = PacketCode.encode(ctx.alloc().ioBuffer(), loginResponsePacket);
+//            ctx.writeAndFlush(buf);
+//            // ctx.fireChannelRead(buf);
+//        } else if (packet instanceof MessageRequestPacket) {
+//            log.info("{} 收到客户端信息：{}", new Date(), packet.toString());
+//            log.info("{} 回复客户端", new Date());
+//
+//            MessageResponsePacket responsePacket = new MessageResponsePacket();
+//            responsePacket.setMessage("我收到消息了");
+//            ByteBuf buf = PacketCode.encode(ctx.alloc().ioBuffer(), responsePacket);
+//            ctx.writeAndFlush(buf);
+//        }
+//
+//        ReferenceCountUtil.release(msg);
     }
 
     private boolean loginValid(final Packet packet) {
