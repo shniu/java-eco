@@ -19,8 +19,7 @@
         <module>eco-fsm</module>
         <module>eco-coffee-srv</module>
 
-        <module>eco-modular</module>
-        <module>eco-concurrency</module>
+        <module>eco-corejava</module>
 
         <module>eco-whatsapp/whatsapp-server</module>
         <module>eco-whatsapp/whatsapp-client</module>
@@ -29,8 +28,6 @@
         <module>spring-boot-graceful-shutdown</module>
 
         <module>eco-notes/arts</module>
-        <module>eco-notes/juc</module>
-        <module>eco-notes/learningSourceCode</module>
 
         <module>eco-middleware</module>
 
