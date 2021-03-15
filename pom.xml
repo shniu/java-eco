@@ -15,7 +15,7 @@
         <module>eco-ratelimiter</module>
         <module>eco-reactive</module>
 
-        <module>eco-identity</module>
+        <module>eco-distribute-tech</module>
         <module>eco-fsm</module>
         <module>eco-coffee-srv</module>
 
