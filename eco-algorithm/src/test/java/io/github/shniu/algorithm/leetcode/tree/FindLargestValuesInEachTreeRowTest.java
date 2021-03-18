@@ -44,7 +44,8 @@ public class FindLargestValuesInEachTreeRowTest {
         FindLargestValuesInEachTreeRow findLargestValuesInEachTreeRow = new FindLargestValuesInEachTreeRow();
 
         // when
-        List<Integer> values = findLargestValuesInEachTreeRow.largestValues(buildTree2());
+        // List<Integer> values = findLargestValuesInEachTreeRow.largestValues(buildTree2());
+        List<Integer> values = findLargestValuesInEachTreeRow.largestValues2(buildTree2());
 
         // then
         System.out.println(values);

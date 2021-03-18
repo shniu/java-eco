@@ -57,4 +57,26 @@ public class FindLargestValuesInEachTreeRow {
 
         return res;
     }
+
+    // 递归
+    public List<Integer> largestValues2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        search(root, 0, res);
+        return res;
+    }
+
+    void search(TreeNode node, int level, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        if (res.size() <= level) {
+            res.add(node.val);
+        } else {
+            res.set(level, Math.max(node.val, res.get(level)));
+        }
+
+        search(node.left, level + 1, res);
+        search(node.right, level + 1, res);
+    }
 }
