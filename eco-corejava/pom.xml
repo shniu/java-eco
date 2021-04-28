@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>eco-concurrency</artifactId>
+    <artifactId>eco-corejava</artifactId>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
@@ -18,7 +18,13 @@
             <artifactId>disruptor</artifactId>
             <version>3.4.2</version>
         </dependency>
-    </dependencies>
 
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
+        </dependency>
+    </dependencies>
 
 </project>

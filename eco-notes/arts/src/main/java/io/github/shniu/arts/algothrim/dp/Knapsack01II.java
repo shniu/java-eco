@@ -17,15 +17,17 @@ public class Knapsack01II {
         int[][] dp = new int[n][w + 1];
 
         // base case
-        for (int i = 0; i <= w; i++) {
-            if (items[0] >= w) dp[0][i] = value[i];
-        }
+        if (items[0] <= w) dp[0][items[0]] = value[0];
 
         // dp
         for (int i = 1; i < n; i++) {
-            for (int j = items[i]; j <= w; j++) {
-                dp[i][j] = Math.max(dp[i - 1][j],
-                        dp[i - 1][j - items[i]] + value[i]);
+            for (int j = 1; j <= w; j++) {
+                if (j - items[i] >= 0) {
+                    dp[i][j] = Math.max(dp[i - 1][j],
+                            dp[i - 1][j - items[i]] + value[i]);
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
             }
         }
 
@@ -39,9 +41,7 @@ public class Knapsack01II {
         int[] dp = new int[w + 1];
 
         // base case
-        for (int i = 0; i <= w; i++) {
-            if (items[0] >= w) dp[i] = value[i];
-        }
+        if (items[0] <= w) dp[items[0]] = value[0];
 
         // dp
         for (int i = 1; i < n; i++) {

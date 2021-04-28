@@ -42,5 +42,7 @@ public class FileChannelSample1 {
 
         byte b = slice.get();
         System.out.println((char) b);
+
+        buffer = null;
     }
 }

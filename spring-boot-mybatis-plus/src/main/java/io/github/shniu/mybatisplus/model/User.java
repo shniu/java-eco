@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@TableName(value = "user")
+@TableName(value = "user_profile")
 public class User {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
