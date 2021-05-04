@@ -11,7 +11,7 @@ public class ClimbingStairsII {
     // dp
     //   climb 1 stair
     public int climbStairs(int n) {
-        if (n <= 2) return 1;
+        if (n <= 2) return n;
         if (n == 3) return 3;
 
         // state array

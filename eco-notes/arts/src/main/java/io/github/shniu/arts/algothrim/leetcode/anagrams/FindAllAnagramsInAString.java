@@ -21,28 +21,36 @@ public class FindAllAnagramsInAString {
         // 左右指针
         int left = 0, right = 0, total = p.length();
 
+        // 这个是目标字符串的每个字符出现的次数统计，是固定的
         int[] needs = new int[26];
+        // 这个是窗口中的每个字符出现的次数统计
         int[] window = new int[26];
+
+        // 目的就是找到 needs == window 的情况
+
+        // 初始化所有 needs
         for (char c : p.toCharArray()) {
             needs[c - 'a']++;
         }
 
+        // 右指针移动到字符串末尾结束
         while (right < s.length()) {
+            // 当前字符
             char r = s.charAt(right);
-            // p 中存在字符 r
+            // p 中存在字符 r，就在 window 中加入这个字符
             if (needs[r - 'a'] > 0) {
-                window[r - 'a']++;
-                if (window[r - 'a'] <= needs[r - 'a']) {
+                window[r - 'a']++; // 字符频次 +1
+                if (window[r - 'a'] <= needs[r - 'a']) {  // 找到了一个符合的字符，total 数量-1
                     total--;
                 }
             }
 
-            while (total == 0) {
-                if (right - left + 1 == p.length()) {
+            while (total == 0) {  // total == 0 时说明，窗口中出现了满足 needs 的字符频率，但是不一定存在这个字串，需要移动 left
+                if (right - left + 1 == p.length()) { // 这里就说明已经有合适的字串出现了
                     res.add(left);
                 }
 
-                char l = s.charAt(left);
+                char l = s.charAt(left);  // left 指针的字符在needs中，就更新 window
                 if (needs[l - 'a'] > 0) {
                     window[l - 'a']--;
                     if (window[l - 'a'] < needs[l - 'a']) {

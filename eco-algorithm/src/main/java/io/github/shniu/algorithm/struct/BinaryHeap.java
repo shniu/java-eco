@@ -85,11 +85,14 @@ public class BinaryHeap<T extends Comparable<T>> {
         while (true) {
             j = 2 * k;
             int maxPos = k;
-
+            // 先跟左边比
             if (j <= count && heaps[k].compareTo(heaps[j]) < 0) maxPos = j;
+            // 再跟右边比
             if (j + 1 <= count && heaps[maxPos].compareTo(heaps[j + 1]) < 0) maxPos = j + 1;
+            // 如果当前节点比左右都大，就退出
             if (maxPos == k) break;
 
+            // 交换并更新位置
             swap(heaps, k, maxPos);
             k = maxPos;
         }
