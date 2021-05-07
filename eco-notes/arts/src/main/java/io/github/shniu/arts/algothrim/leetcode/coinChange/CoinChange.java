@@ -1,5 +1,7 @@
 package io.github.shniu.arts.algothrim.leetcode.coinChange;
 
+import java.util.Arrays;
+
 /**
  * https://leetcode-cn.com/problems/coin-change
  * 322. 零钱兑换
@@ -61,13 +63,11 @@ public class CoinChange {
         // state array
         // dp[i] 表示达到金额i所需要的最小硬币数
         int[] dp = new int[amount + 1];
-        for (int i = 0; i < dp.length; i++) {
-            dp[i] = amount + 1;
-        }
+        Arrays.fill(dp, amount + 1);
 
         dp[0] = 0;
 
-        for (int i = 0; i < amount; i++) {
+        for (int i = 1; i <= amount; i++) {
             for (int coin : coins) {
                 if (coin <= i)
                     dp[i] = Math.min(dp[i - coin] + 1, dp[i]);

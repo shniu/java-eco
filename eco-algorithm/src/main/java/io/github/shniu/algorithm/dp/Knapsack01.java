@@ -16,9 +16,7 @@ public class Knapsack01 {
 
         // base case
         dp[0] = true;
-        if (items[0] <= w) {
-            dp[items[0]] = true;
-        }
+        dp[items[0]] = items[0] <= w;
 
         for (int i = 0; i < n; i++) {
             for (int j = w - items[i]; j >= 0; j--) {
@@ -35,9 +33,9 @@ public class Knapsack01 {
         return 0;
     }
 
-    public int knapsack2(int[] items, int n, int w) {
+    public int knapsack2(int[] weights, int n, int w) {
         // 使用二维数组存储状态
-        // dp[][] 表示到第 i 个物品是否能满足最大重量为 j 的情况
+        // dp[][] 表示到前 i 个物品是否能满足最大重量为 j 的情况
         //  dp[1][3] = true 表示 0 和 1 两个物品的组合可以满足重量是 3
         //  dp[2][3] 肯定也是 true 的
         // 当计算 dp[3][6] 且 index=3 物品重量是 3，如果放如这个物品，就需要前 i-1 个物品满足 dp[2][3]=true
@@ -45,9 +43,7 @@ public class Knapsack01 {
 
         // base case
         dp[0][0] = true;
-        if (items[0] <= w) {  // 第一个物品特殊处理
-            dp[0][items[0]] = true;
-        }
+        dp[0][weights[0]] = weights[0] <= w; // 第一个物品特殊处理
 
         // 剩下的物品
         for (int i = 1; i < n; i++) {
@@ -57,10 +53,8 @@ public class Knapsack01 {
             }
 
             // 放第 i 个物品
-            for (int j = 0; j <= w - items[i]; j++) {
-                if (dp[i - 1][j]) {
-                    dp[i][j + items[i]] = true;
-                }
+            for (int j = 0; j <= w - weights[i]; j++) {
+                dp[i][j + weights[i]] = dp[i - 1][j];
             }
         }
 
