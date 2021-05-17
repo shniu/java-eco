@@ -12,7 +12,7 @@
     <artifactId>dubbo-demo</artifactId>
 
     <properties>
-        <spring.version>4.3.16.RELEASE</spring.version>
+        <spring.version>4.3.29.RELEASE</spring.version>
         <dubbo.version>2.7.7</dubbo.version>
         <junit.version>4.12</junit.version>
     </properties>
