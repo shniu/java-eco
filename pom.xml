@@ -40,6 +40,8 @@
         <module>eco-coffee-srv/customer-srv</module>
         <module>eco-vertx</module>
         <module>flash-chat</module>
+        <module>dubbo-demo</module>
+        <module>nacos-demo</module>
 
     </modules>
 
