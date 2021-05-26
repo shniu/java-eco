@@ -37,18 +37,21 @@ class PrintThread implements Runnable {
     @Override
     public void run() {
         while (true) {
-            lock.lock();
+            try {
+                lock.lock();
 
-            if (count >= MAX) {
+                if (count >= MAX) {
+                    // lock.unlock();
+                    return;
+                }
+
+                if (count % 3 == flag) {
+                    System.out.println(name);
+                    count++;
+                }
+            } finally {
                 lock.unlock();
-                return;
             }
-
-            if (count % 3 == flag) {
-                System.out.println(name);
-                count++;
-            }
-            lock.unlock();
         }
     }
 }

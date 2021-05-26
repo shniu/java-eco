@@ -1,10 +1,16 @@
 package io.github.shniu.corejava.basic;
 
+import com.google.common.collect.Maps;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class ThreadLocalDemo {
     private static ThreadLocal<Map<String, String>> local = new ThreadLocal<>();
+    private static ThreadLocal<Map<String, String>> local2 = ThreadLocal.withInitial(Maps::newHashMap);
+
+    // private static Map<ThreadLocal, Supplier<? extends S> supplier>
 
     public static void main(String[] args) throws InterruptedException {
         ThreadLocal.withInitial(() -> {
